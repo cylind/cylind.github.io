@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>python可哈希对象</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;一个对象在其生命周期内，如果保持不变，就是hashable（可哈希的），常见的可哈希的数据类型有数值、字符串、列表；而内容可更改的，比如列表、字典、集合等则不是。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;p&amp;gt;官方解释：&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;An object is hashable if it has a hash value which never ch…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/pythonke-ha-xi-dui-xiang/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/pythonke-ha-xi-dui-xiang/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="python可哈希对象">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;一个对象在其生命周期内，如果保持不变，就是hashable（可哈希的），常见的可哈希的数据类型有数值、字符串、列表；而内容可更改的，比如列表、字典、集合等则不是。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;p&amp;gt;官方解释：&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;An object is hashable if it has a hash value which never ch…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="python可哈希对象">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;一个对象在其生命周期内，如果保持不变，就是hashable（可哈希的），常见的可哈希的数据类型有数值、字符串、列表；而内容可更改的，比如列表、字典、集合等则不是。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;p&amp;gt;官方解释：&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;An object is hashable if it has a hash value which never ch…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>python可哈希对象</h1>
+        <span>
+          <br><time datetime="2020-04-16T20:45:38">Apr 16, 2020</time>
+        </span>
+      </header><p>一个对象在其生命周期内，如果保持不变，就是hashable（可哈希的），常见的可哈希的数据类型有数值、字符串、列表；而内容可更改的，比如列表、字典、集合等则不是。</p>
+<span id="continue-reading"></span>
+<p>官方解释：</p>
+<p>An object is hashable if it has a hash value which never changes during its lifetime (it needs a <strong>hash</strong>() method), and can be compared to other objects (it needs an <strong>eq</strong>() or <strong>cmp</strong>() method). Hashable objects which compare equal must have the same hash value.</p>
+<p>Hashability makes an object usable as a dictionary key and a set member, because these data structures use the hash value internally.</p>
+<p>All of Python’s immutable built-in objects are hashable, while no mutable containers (such as lists or dictionaries) are. Objects which are instances of user-defined classes are hashable by default; they all compare unequal, and their hash value is their id().</p>
+</article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>python中的变量</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;python中分好多变量，全局变量、局部变量、静态变量（类变量）、实例变量，整得人有点懵，今天就腾出时间给它来一次总结。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;ding-yi&amp;quot;&amp;gt;定义&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;1、全局变量：在模块内、在所有函数外面、在class外面&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;2、局部变量：在函数内、在class的方法内（未加self修饰的)…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/pythonzhong-de-bian-liang/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/pythonzhong-de-bian-liang/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="python中的变量">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;python中分好多变量，全局变量、局部变量、静态变量（类变量）、实例变量，整得人有点懵，今天就腾出时间给它来一次总结。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;ding-yi&amp;quot;&amp;gt;定义&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;1、全局变量：在模块内、在所有函数外面、在class外面&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;2、局部变量：在函数内、在class的方法内（未加self修饰的)…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="python中的变量">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;python中分好多变量，全局变量、局部变量、静态变量（类变量）、实例变量，整得人有点懵，今天就腾出时间给它来一次总结。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;ding-yi&amp;quot;&amp;gt;定义&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;1、全局变量：在模块内、在所有函数外面、在class外面&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;2、局部变量：在函数内、在class的方法内（未加self修饰的)…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>python中的变量</h1>
+        <span>
+          <br><time datetime="2020-04-21T13:27:46">Apr 21, 2020</time>
+        </span>
+      </header><p>python中分好多变量，全局变量、局部变量、静态变量（类变量）、实例变量，整得人有点懵，今天就腾出时间给它来一次总结。</p>
+<span id="continue-reading"></span><h2 id="ding-yi">定义</h2>
+<p>1、全局变量：在模块内、在所有函数外面、在class外面</p>
+<p>2、局部变量：在函数内、在class的方法内（未加self修饰的)</p>
+<p>3、静态变量：在class内的，但不在class的方法内的 （也叫类变量）</p>
+<p>4、实例变量：在class的方法内的，用self修饰的变量</p>
+<p>python是面向对象编程的语言，在python里一切皆对象，从这个角度来看，上述变量都是不同对象的属性</p>
+<p>a、全局变量：属于模块的属性</p>
+<p>b、局部变量：属于方法或函数的属性</p>
+<p>c、 类变量：属于类的属性</p>
+<p>d、 实例变量：属于对象的属性</p>
+<h2 id="jian-jie">简介</h2>
+<p>下面开始用实际例子来说明一下全局变量和局部变量、静态变量和实例变量以及关键字global和nonlocal的使用。</p>
+<h3 id="quan-ju-bian-liang-yu-ju-bu-bian-liang">全局变量与局部变量</h3>
+<p>全局变量与局部变量的作用域不同，全局变量在整个模块（也就是整个py文件）内起作用，而局部变量只在某个具体的函数内起作用。</p>
+<p>全局变量与局部变量由于作用域不同，二者并无直接关系，即使是使用相同变量的变量名，这两个变量仍然是属于不同的变量。</p>
+<p>在函数内获取并修改全局变量时，要使用global声明，如果仅仅只是获取全局变量，可以不进行global声明，但是规范上是建议大家这么做的。</p>
+<pre data-lang="python" style="background-color:#ffffff;color:#323232;" class="language-python "><code class="language-python" data-lang="python"><span>x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#0086b3;">1
+</span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">foo</span><span>():
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">global </span><span>x </span><span style="font-style:italic;color:#969896;"># 如果不声明global，会报错
+</span><span>    x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>x </span><span style="font-weight:bold;color:#a71d5d;">+ </span><span style="color:#0086b3;">2 </span><span style="font-style:italic;color:#969896;"># 获取并修改全局变量x
+</span><span>    </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>    
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>foo()
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span><span style="font-style:italic;color:#969896;">#140703138079440 3
+</span><span style="font-style:italic;color:#969896;">#140703138079440 3
+</span></code></pre>
+<pre data-lang="python" style="background-color:#ffffff;color:#323232;" class="language-python "><code class="language-python" data-lang="python"><span>x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#0086b3;">1
+</span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">foo</span><span>():
+</span><span>    y </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>x </span><span style="font-weight:bold;color:#a71d5d;">+ </span><span style="color:#0086b3;">2 </span><span style="font-style:italic;color:#969896;">#仅获取全局变量x
+</span><span>    </span><span style="color:#62a35c;">print</span><span>(y)
+</span><span>foo() </span><span style="font-style:italic;color:#969896;">#输出为3
+</span></code></pre>
+<pre data-lang="python" style="background-color:#ffffff;color:#323232;" class="language-python "><code class="language-python" data-lang="python"><span>x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#0086b3;">1
+</span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">foo</span><span>():
+</span><span>    </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x) </span><span style="font-style:italic;color:#969896;">#仅获取全局变量x
+</span><span>
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>foo()
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span></code></pre>
+<p>如果在未声明global的前提下，在函数内创建一个与全局变量同名的变量，创建的变量默认为局部变量。</p>
+<pre data-lang="python" style="background-color:#ffffff;color:#323232;" class="language-python "><code class="language-python" data-lang="python"><span>x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#0086b3;">1
+</span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">foo</span><span>():
+</span><span>    x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#0086b3;">2
+</span><span>    </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x) </span><span style="font-style:italic;color:#969896;">#仅获取全局变量x
+</span><span>
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>foo()
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span><span style="font-style:italic;color:#969896;">#140703138079408 2
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span></code></pre>
+<h3 id="globalyu-nonlocal">global与nonlocal</h3>
+<p>global上面已经讲到过了，其作用域是整个模块，这里主要讲一下nonlocal的用法。</p>
+<p>nonlocal，顾名思义，就是非局部的意思，它是用在嵌套函数的内层函数里的，否则会报错，它的意义跟global几乎一样，用来声明变量为上一层函数的变量（注意，是上一层），若果要获取并修改上一层的变量，必须要进行nonlocal声明，只是获取上层变量的话，可以不进行nonlocal声明（实际上不声明的话，默认就是获取上一层的变量）。</p>
+<p>同样的，由于不同层的变量作用域不同，它们之间并无直接关系，即使是使用相同变量的变量名，这些变量仍然是属于不同的变量。如果在未声明nonlocal的前提下，在函数内创建一个与全局变量同名的变量，创建的变量默认为局部变量。（由于和global用法一样，所以直接抄global部分的说明。。。）</p>
+<pre data-lang="python" style="background-color:#ffffff;color:#323232;" class="language-python "><code class="language-python" data-lang="python"><span style="font-style:italic;color:#969896;">#不进行nonlocal声明情况下，函数内创建的变量默认就是作用域为该函数范围内的新变量
+</span><span>x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#0086b3;">1
+</span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">outer</span><span>():
+</span><span>    x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#183691;">&quot;outer&quot;
+</span><span>    </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">inner</span><span>():     </span><span style="font-style:italic;color:#969896;">#如果直接修改x = x + &quot;sometext&quot;,则报错
+</span><span>        x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#183691;">&quot;inner&quot;  </span><span style="font-style:italic;color:#969896;">#如果把x=&quot;inner&quot;注释掉，则inner()获取上一层的x=&quot;outer&quot;
+</span><span>        </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>        </span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">mostinner</span><span>():
+</span><span>            x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#183691;">&quot;mostinner&quot;
+</span><span>            </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>        mostinner()
+</span><span>    inner()
+</span><span>
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>outer()
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span><span style="font-style:italic;color:#969896;">#1589698876448 outer
+</span><span style="font-style:italic;color:#969896;">#1589690252624 inner
+</span><span style="font-style:italic;color:#969896;">#1589698638192 mostinner
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span></code></pre>
+<pre data-lang="python" style="background-color:#ffffff;color:#323232;" class="language-python "><code class="language-python" data-lang="python"><span style="font-style:italic;color:#969896;"># 进行nonlocal声明后，可以获取修改上层变量
+</span><span>x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#0086b3;">1
+</span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">outer</span><span>():
+</span><span>    x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#183691;">&quot;outer&quot;
+</span><span>    </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">inner</span><span>():
+</span><span>        </span><span style="font-weight:bold;color:#a71d5d;">nonlocal </span><span>x
+</span><span>        x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>x </span><span style="font-weight:bold;color:#a71d5d;">+</span><span style="color:#183691;">&#39;_inner&#39;
+</span><span>        </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>        </span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">mostinner</span><span>():
+</span><span>            x </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#183691;">&quot;mostinner&quot;
+</span><span>            </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>        mostinner()
+</span><span>    inner()
+</span><span>    </span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>outer()
+</span><span style="color:#62a35c;">print</span><span>(</span><span style="color:#62a35c;">id</span><span>(x),x)
+</span><span>
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span><span style="font-style:italic;color:#969896;">#2570221048472 outer
+</span><span style="font-style:italic;color:#969896;">#2570220811056 outer_inner
+</span><span style="font-style:italic;color:#969896;">#2570220760688 mostinner
+</span><span style="font-style:italic;color:#969896;">#2570220811056 outer_inner
+</span><span style="font-style:italic;color:#969896;">#140703138079376 1
+</span></code></pre>
+<p>总结一下，global和nonlocal的用法是一样的，global用于声明全局变量，nonlocal用于声明上一层函数的变量；不加声明的话，则默认获取全局或上层变量（如果没有，则创建作用于本函数的局部变量）；不加声明修改则报错。</p>
+<h3 id="jing-tai-bian-liang-yu-shi-li-bian-liang">静态变量与实例变量</h3>
+<ul>
+<li>
+<p>类变量： 类变量就是定义在类中，但是在函数体之外的变量。通常不使用<code>self.变量名</code>赋值的变量。类变量通常不作为类的实例变量的，类变量对于所有实例化的对象中是公用的。</p>
+</li>
+<li>
+<p>实例变量： 实例变量是定义在方法中的变量，使用<code>self</code>绑定到实例上的变量，只是对当前实例起作用。</p>
+</li>
+</ul>
+<pre data-lang="python" style="background-color:#ffffff;color:#323232;" class="language-python "><code class="language-python" data-lang="python"><span style="font-weight:bold;color:#a71d5d;">class </span><span style="color:#0086b3;">foo</span><span>:
+</span><span>    </span><span style="color:#62a35c;">all </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#0086b3;">0   
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">def </span><span style="font-weight:bold;color:#323232;">add</span><span>(self):
+</span><span>        foo.all </span><span style="font-weight:bold;color:#a71d5d;">+= </span><span style="color:#0086b3;">1
+</span><span>    
+</span><span>i1 </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>foo() </span><span style="font-style:italic;color:#969896;">#实例化对象
+</span><span>i2 </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>foo()
+</span><span style="color:#62a35c;">print</span><span>(i1.all,i2.all,foo.all) </span><span style="font-style:italic;color:#969896;">#0 0 0
+</span><span>
+</span><span>i1.add()
+</span><span style="color:#62a35c;">print</span><span>(i1.all,i2.all,foo.all) </span><span style="font-style:italic;color:#969896;">#1 1 1 
+</span><span>
+</span><span>i2.add()
+</span><span style="color:#62a35c;">print</span><span>(i1.all,i2.all,foo.all) </span><span style="font-style:italic;color:#969896;">#2 2 2 
+</span><span>
+</span><span>foo().add()
+</span><span style="color:#62a35c;">print</span><span>(i1.all,i2.all,foo.all) </span><span style="font-style:italic;color:#969896;">#3 3 3
+</span></code></pre>
+<p>未完待续。。。</p>
+<p>参考：</p>
+<p>https://blog.csdn.net/cadi2011/article/details/52457754</p>
+<p>https://www.jianshu.com/p/9fefb52ca91b</p>
+<p>https://www.imooc.com/article/14652</p>
+</article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

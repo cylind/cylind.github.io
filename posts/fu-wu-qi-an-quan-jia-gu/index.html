@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>服务器安全加固</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;之前的一台小鸡，从早被扫到晚，以至于我ssh时常掉线，自那以后开始了解到ssh爆破这个概念，上网搜集了相关教程，汇总了一下。当然啦，用秘钥登录是最安全的，我这里最求方便，折中一下，介绍的是密码登录的安全加固方法，简单几步，让你的服务器安全系数瞬间提升。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;qi-yong-qiang-mi-ma&amp;quot;&amp;gt;启用…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/fu-wu-qi-an-quan-jia-gu/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/fu-wu-qi-an-quan-jia-gu/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="服务器安全加固">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;之前的一台小鸡，从早被扫到晚，以至于我ssh时常掉线，自那以后开始了解到ssh爆破这个概念，上网搜集了相关教程，汇总了一下。当然啦，用秘钥登录是最安全的，我这里最求方便，折中一下，介绍的是密码登录的安全加固方法，简单几步，让你的服务器安全系数瞬间提升。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;qi-yong-qiang-mi-ma&amp;quot;&amp;gt;启用…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="服务器安全加固">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;之前的一台小鸡，从早被扫到晚，以至于我ssh时常掉线，自那以后开始了解到ssh爆破这个概念，上网搜集了相关教程，汇总了一下。当然啦，用秘钥登录是最安全的，我这里最求方便，折中一下，介绍的是密码登录的安全加固方法，简单几步，让你的服务器安全系数瞬间提升。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;qi-yong-qiang-mi-ma&amp;quot;&amp;gt;启用…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>服务器安全加固</h1>
+        <span>
+          <br><time datetime="2020-06-14T23:06:07">Jun 14, 2020</time>
+        </span>
+      </header><p>之前的一台小鸡，从早被扫到晚，以至于我ssh时常掉线，自那以后开始了解到ssh爆破这个概念，上网搜集了相关教程，汇总了一下。当然啦，用秘钥登录是最安全的，我这里最求方便，折中一下，介绍的是密码登录的安全加固方法，简单几步，让你的服务器安全系数瞬间提升。</p>
+<span id="continue-reading"></span><h2 id="qi-yong-qiang-mi-ma">启用强密码</h2>
+<p>启用强密码可以有效防止密码爆破，就是防止别人用字典轻易套出你的密码，现在ssh爆破，大都有比较好的字典，弱密码的话，分分钟可能就被爆破了，所以强烈建议使用强密码：</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>passwd root
+</span></code></pre>
+<h2 id="geng-huan-sshduan-kou">更换ssh端口</h2>
+<p>网络上的ssh爆破一般都是扫默认的22端口，如果我们把ssh端口改一下，肯定地说，可以过滤掉一大片低端ssh爆破扫描了，另外，大部分ssh爆破扫描都是扫描1000以下的低端口，所以建议更换ssh端的话，更换到1000以上的高端口。</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>nano /etc/ssh/sshd_config
+</span><span>Port = [yourPort]
+</span><span>service sshd restart
+</span></code></pre>
+<h2 id="kai-qi-fang-huo-qiang">开启防火墙</h2>
+<p>安装防火墙，把不用到的端口关掉，从而把攻击面降到最小。ufw是比较好用的防火墙工具，推荐使用。</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>apt install ufw
+</span><span>ufw allow 80
+</span><span>ufw allow 443
+</span><span>ufw allow [yourSSHPort]
+</span><span>ufw enable
+</span><span>ufw delete allow 80
+</span></code></pre>
+<h2 id="fang-zhi-sshbao-po">防止SSH爆破</h2>
+<p>ssh爆破就是不断地用字典中的密码来试探你的真实密码，这时候如果我们限定密码错误次数，如果达到一次的错误次数，就封禁ip，也能很有效的防止密码爆破。fail2ban可以实现我们需要的功能，它能通过分析登录日志，从而根据我们预设的规则做出相应的动作。</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>apt install fail2ban
+</span><span>cd /etc/fail2ban
+</span><span>cp jail.conf jail.local
+</span><span>nano jail.local
+</span><span># 排除自身ip，ignoreip处加上自己的ip
+</span><span># sshd处更改端口为2333，并加上 enabled = true
+</span><span># 然后启动fail2ban服务，并设置开机自启
+</span><span>service fail2ban restart
+</span><span>systemctl enable fail2ban
+</span></code></pre>
+<h2 id="ding-qi-jian-cha-deng-lu-ri-zhi">定期检查登录日志</h2>
+<p>觉得不太对劲的时候，可以查查登录日志。这里是举例的是Debian系的登录日志，centos的可以上网查。</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>cat /var/log/auth.log | grep Accepted
+</span><span>cat /var/log/auth.log | grep Failed
+</span></code></pre>
+<h2 id="bu-chong-mi-yao-deng-lu">补充：秘钥登录</h2>
+<p>某些大厂商，比如AWS,GCP等，默认要求用户用秘钥登录，以提高安全性。那么这时候，我们用秘钥登录后，可通过添加新用户并授予sudo权限，修改<code>sshd_config</code>设置来进行密码登录，更方便地管理机器。</p>
+<p>秘钥登录:</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>ssh -i my-key-pair.pem username@server_address
+</span></code></pre>
+<p>允许密码登录：</p>
+<p>（有的机器可能默认允许密码登录，无需修改）</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>nano /etc/ssh/sshd_config
+</span><span>PasswordAuthentication yes
+</span></code></pre>
+<p>添加新用户并添加到sudo组：</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>adduser newuser
+</span><span>usermod -a -G sudo newuser
+</span></code></pre>
+<h2 id="can-kao">参考：</h2>
+<p>https://liamlin.me/2018/11/27/security-hardening-guide-on-centos-7</p>
+</article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

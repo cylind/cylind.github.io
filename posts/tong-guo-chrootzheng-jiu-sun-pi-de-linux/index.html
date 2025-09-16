@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>通过chroot拯救损坏的Linux</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;初次接触Linux的时候，安装的是Manjaro（Deepin Desktop），一款基于Arch的桌面发行版，Arch采取的是滚动更新。后来滚动更新完后，时不时出现问题，有时开不了机。大部分都是依赖关系或者包冲突导致，我当时的做法是，先用一个U盘启动Manjaro LiveCD，然后执行chroot切换有问题的Manjaro系统分区作为&amp;lt;code&amp;gt;&#x2F;&amp;lt;&#x2F;code&amp;gt;，最后升级&#x2F;更新一次系统或…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/tong-guo-chrootzheng-jiu-sun-pi-de-linux/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/tong-guo-chrootzheng-jiu-sun-pi-de-linux/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="通过chroot拯救损坏的Linux">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;初次接触Linux的时候，安装的是Manjaro（Deepin Desktop），一款基于Arch的桌面发行版，Arch采取的是滚动更新。后来滚动更新完后，时不时出现问题，有时开不了机。大部分都是依赖关系或者包冲突导致，我当时的做法是，先用一个U盘启动Manjaro LiveCD，然后执行chroot切换有问题的Manjaro系统分区作为&amp;lt;code&amp;gt;&#x2F;&amp;lt;&#x2F;code&amp;gt;，最后升级&#x2F;更新一次系统或…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="通过chroot拯救损坏的Linux">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;初次接触Linux的时候，安装的是Manjaro（Deepin Desktop），一款基于Arch的桌面发行版，Arch采取的是滚动更新。后来滚动更新完后，时不时出现问题，有时开不了机。大部分都是依赖关系或者包冲突导致，我当时的做法是，先用一个U盘启动Manjaro LiveCD，然后执行chroot切换有问题的Manjaro系统分区作为&amp;lt;code&amp;gt;&#x2F;&amp;lt;&#x2F;code&amp;gt;，最后升级&#x2F;更新一次系统或…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>通过chroot拯救损坏的Linux</h1>
+        <span>
+          <br><time datetime="2020-11-01T15:41:50">Nov 01, 2020</time>
+        </span>
+      </header><p>初次接触Linux的时候，安装的是Manjaro（Deepin Desktop），一款基于Arch的桌面发行版，Arch采取的是滚动更新。后来滚动更新完后，时不时出现问题，有时开不了机。大部分都是依赖关系或者包冲突导致，我当时的做法是，先用一个U盘启动Manjaro LiveCD，然后执行chroot切换有问题的Manjaro系统分区作为<code>/</code>，最后升级/更新一次系统或利用timeshift进行系统还原。</p>
+<span id="continue-reading"></span><h3 id="jin-ru-livecd">进入LiveCD</h3>
+<p>将同样的发行版linux系统刻录到u盘，插入计算机，开机，按f12或其他，选择进入livecd</p>
+<h3 id="gua-zai-linuxfen-qu">挂载Linux分区</h3>
+<p>切换到root</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>sudo -i
+</span></code></pre>
+<p>查看Linux分区位置</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>fdisk -l
+</span></code></pre>
+<p>挂载Linux分区到/mnt目录</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span># 假设linux分区为/dev/sda
+</span><span>mount /dev/sda /mnt
+</span></code></pre>
+<p>挂载其它必要环境或设备</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>for i in /dev /dev/pts /proc /sys /run;do mount -B $i /mnt$i;done
+</span></code></pre>
+<h3 id="chrootbing-xiu-fu">chroot并修复</h3>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>chroot /mnt
+</span></code></pre>
+<p>开始修复工作</p>
+<h3 id="can-kao">参考</h3>
+<p>https://ziqiangxu.github.io/blog/accumulation/%E7%94%A8chroot%E4%BF%AE%E5%A4%8DLinux%E7%B3%BB%E7%BB%9F.html</p>
+<p>https://www.cnblogs.com/tsreaper/p/chroot-fix-boot.html</p>
+</article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

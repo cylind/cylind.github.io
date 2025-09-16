@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Trojan-go代理服务搭建</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;Trojan-Go可以说是集成了Trojan-gfw和V2ray的优点吧，简单如trojan-gfw却又强大如V2ray。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;huo-qu-trojan-go&amp;quot;&amp;gt;获取Trojan-Go&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;先到&amp;lt;a href=&amp;quot;https:&#x2F;&#x2F;github.com&#x2F;p4gefau1t&#x2F;trojan-go&#x2F;…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/trojan-godai-li-fu-wu-da-jian/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/trojan-godai-li-fu-wu-da-jian/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="Trojan-go代理服务搭建">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;Trojan-Go可以说是集成了Trojan-gfw和V2ray的优点吧，简单如trojan-gfw却又强大如V2ray。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;huo-qu-trojan-go&amp;quot;&amp;gt;获取Trojan-Go&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;先到&amp;lt;a href=&amp;quot;https:&#x2F;&#x2F;github.com&#x2F;p4gefau1t&#x2F;trojan-go&#x2F;…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="Trojan-go代理服务搭建">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;Trojan-Go可以说是集成了Trojan-gfw和V2ray的优点吧，简单如trojan-gfw却又强大如V2ray。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;huo-qu-trojan-go&amp;quot;&amp;gt;获取Trojan-Go&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;先到&amp;lt;a href=&amp;quot;https:&#x2F;&#x2F;github.com&#x2F;p4gefau1t&#x2F;trojan-go&#x2F;…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>Trojan-go代理服务搭建</h1>
+        <span>
+          <br><time datetime="2020-06-14T22:58:24">Jun 14, 2020</time>
+        </span>
+      </header><p>Trojan-Go可以说是集成了Trojan-gfw和V2ray的优点吧，简单如trojan-gfw却又强大如V2ray。</p>
+<span id="continue-reading"></span><h2 id="huo-qu-trojan-go">获取Trojan-Go</h2>
+<p>先到<a href="https://github.com/p4gefau1t/trojan-go/releases">Trojan-Go release页面</a> 下载最新的预编译包，然后解压：</p>
+<pre data-lang="shell" style="background-color:#ffffff;color:#323232;" class="language-shell "><code class="language-shell" data-lang="shell"><span>mkdir trojan-go
+</span><span>cd trojan-go
+</span><span>wget https://github.com/p4gefau1t/trojan-go/releases/download/v0.7.8/trojan-go-linux-amd64.zip
+</span><span>unzip trojan-go-linux-amd64.zip
+</span></code></pre>
+<p>如果解压那步出错，可能是没安装<code>unzip</code>,先安装，再操作</p>
+<h2 id="huo-qu-tlszheng-shu">获取TLS证书</h2>
+<p>这一步的前提是，有一个域名并且解析到该VPS上。</p>
+<p>这里我们用<code>certbot</code>来申请证书，首先安装<code>certbot</code>:</p>
+<pre data-lang="shell" style="background-color:#ffffff;color:#323232;" class="language-shell "><code class="language-shell" data-lang="shell"><span>apt install certbot
+</span></code></pre>
+<p>然后，申请证书（注意，这一步要用到443端口，确认当前443端口没有被占用）：</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>certbot certonly --standalone -d yourDomain.com
+</span></code></pre>
+<p>生成的证书文件保存在<code>/etc/letsencrypt/live/</code>文件夹下。</p>
+<p>Let’s Encrypt 提供的证书只有90天的有效期，我们必须在证书到期之前，重新获取这些证书，证书更新命令是(同样的，执行证书更新是要用到443端口，请确保443端口没有被占用)：</p>
+<pre data-lang="shell" style="background-color:#ffffff;color:#323232;" class="language-shell "><code class="language-shell" data-lang="shell"><span>certbot renew --dry-run
+</span></code></pre>
+<p>为了方便，可以利用linux下的crontab做一个定时任务，每两月自动更新一次证书：</p>
+<pre data-lang="shell" style="background-color:#ffffff;color:#323232;" class="language-shell "><code class="language-shell" data-lang="shell"><span>0 3 * */2 * certbot renew --pre-hook &quot;service nginx stop&quot; --post-hook &quot;service nginx start&quot;
+</span></code></pre>
+<p><code>--pre-hook</code> 这个参数表示执行更新操作之前要做的事情，因为 <code>--standalone</code> 模式的证书申请或更新是用到443端口，所以需要先停止 <code>nginx</code> 服务，解除端口占用。 <code>--post-hook</code> 这个参数表示执行更新操作完成后要做的事情，这里就恢复 <code>nginx</code> 服务的启用。</p>
+<h2 id="pei-zhi-ben-di-webfu-wu">配置本地Web服务</h2>
+<p>想省事的也可以不配置，直接反代别人做好的现成的网站，比如<code>1.1.1.1</code></p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>apt install nginx
+</span><span>service start nginx
+</span></code></pre>
+<p>至于网站伪装，可以直接到网站搜索一些网站模板挂上去，当然，也可以不做这一步。</p>
+<h2 id="pei-zhi-trojan-go">配置Trojan-Go</h2>
+<p>可以直接修改开发者给出的范例文件，把域名，密码改成自己想设置的：</p>
+<pre data-lang="shell" style="background-color:#ffffff;color:#323232;" class="language-shell "><code class="language-shell" data-lang="shell"><span>nano ~/trojan-go/example/server.json
+</span><span>nano ~/trojan-go/example/client.json
+</span></code></pre>
+<p>如果想使用websocket的话，还要额外加上：</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>&quot;websocket&quot;: {
+</span><span>    &quot;enabled&quot;: true,
+</span><span>    &quot;path&quot;: &quot;/ws_path&quot;,
+</span><span>    &quot;hostname&quot;: &quot;yourDomain.com&quot;
+</span><span>    }
+</span></code></pre>
+<p>最好的成品是这样的，server端：</p>
+<p><mark>没配置有本地web服务的可填在remote_addr处填<code>1.1.1.1</code>或其他现成网站网址</mark></p>
+<pre data-lang="json" style="background-color:#ffffff;color:#323232;" class="language-json "><code class="language-json" data-lang="json"><span>
+</span><span>{
+</span><span>    </span><span style="color:#183691;">&quot;run_type&quot;</span><span>: </span><span style="color:#183691;">&quot;server&quot;</span><span>,
+</span><span>    </span><span style="color:#183691;">&quot;local_addr&quot;</span><span>: </span><span style="color:#183691;">&quot;0.0.0.0&quot;</span><span>,
+</span><span>    </span><span style="color:#183691;">&quot;local_port&quot;</span><span>: </span><span style="color:#0086b3;">443</span><span>,
+</span><span>    </span><span style="color:#183691;">&quot;remote_addr&quot;</span><span>: </span><span style="color:#183691;">&quot;127.0.0.1&quot;</span><span>,
+</span><span>    </span><span style="color:#183691;">&quot;remote_port&quot;</span><span>: </span><span style="color:#0086b3;">80</span><span>,
+</span><span>    </span><span style="color:#183691;">&quot;password&quot;</span><span>: [
+</span><span>        </span><span style="color:#183691;">&quot;passwd&quot;
+</span><span>    ],
+</span><span>    </span><span style="color:#183691;">&quot;ssl&quot;</span><span>: {
+</span><span>        </span><span style="color:#183691;">&quot;cert&quot;</span><span>: </span><span style="color:#183691;">&quot;/etc/letsencrypt/live/yourDomain.com/fullchain.pem&quot;</span><span>,
+</span><span>        </span><span style="color:#183691;">&quot;key&quot;</span><span>: </span><span style="color:#183691;">&quot;/etc/letsencrypt/live/yourDomain.com/privkey.pem&quot;</span><span>,
+</span><span>        </span><span style="color:#183691;">&quot;sni&quot;</span><span>: </span><span style="color:#183691;">&quot;yourDomain.com&quot;
+</span><span>    },
+</span><span>    </span><span style="color:#183691;">&quot;websocket&quot;</span><span>: {
+</span><span>    </span><span style="color:#183691;">&quot;enabled&quot;</span><span>: </span><span style="color:#0086b3;">true</span><span>,
+</span><span>    </span><span style="color:#183691;">&quot;path&quot;</span><span>: </span><span style="color:#183691;">&quot;/ws_path&quot;</span><span>,
+</span><span>    </span><span style="color:#183691;">&quot;hostname&quot;</span><span>: </span><span style="color:#183691;">&quot;yourDomain.com&quot;
+</span><span>    },
+</span><span>    </span><span style="color:#183691;">&quot;router&quot;</span><span>:{
+</span><span>        </span><span style="color:#183691;">&quot;enabled&quot;</span><span>: </span><span style="color:#0086b3;">true</span><span>,
+</span><span>        </span><span style="color:#183691;">&quot;block&quot;</span><span>: [
+</span><span>            </span><span style="color:#183691;">&quot;geoip:private&quot;
+</span><span>        ]
+</span><span>    }
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>client端：</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>{
+</span><span>    &quot;run_type&quot;: &quot;client&quot;,
+</span><span>    &quot;local_addr&quot;: &quot;127.0.0.1&quot;,
+</span><span>    &quot;local_port&quot;: 1081,
+</span><span>    &quot;remote_addr&quot;: &quot;yourDomain.com&quot;,
+</span><span>    &quot;remote_port&quot;: 443,
+</span><span>    &quot;password&quot;: [
+</span><span>        &quot;passwd&quot;
+</span><span>    ],
+</span><span>    &quot;ssl&quot;: {
+</span><span>        &quot;sni&quot;: &quot;yourDomain.com&quot;
+</span><span>    },
+</span><span>    &quot;mux&quot; :{
+</span><span>        &quot;enabled&quot;: true
+</span><span>    },
+</span><span>    &quot;websocket&quot;: {
+</span><span>    &quot;enabled&quot;: true,
+</span><span>    &quot;path&quot;: &quot;/ws_path&quot;,
+</span><span>    &quot;hostname&quot;: &quot;yourDomain.com&quot;
+</span><span>    },
+</span><span>    &quot;router&quot;:{
+</span><span>        &quot;enabled&quot;: true,
+</span><span>        &quot;bypass&quot;: [
+</span><span>            &quot;geoip:cn&quot;,
+</span><span>            &quot;geoip:private&quot;,
+</span><span>            &quot;geosite:cn&quot;,
+</span><span>            &quot;geosite:geolocation-cn&quot;
+</span><span>        ],
+</span><span>        &quot;block&quot;: [
+</span><span>            &quot;geosite:category-ads&quot;
+</span><span>        ],
+</span><span>        &quot;proxy&quot;: [
+</span><span>            &quot;geosite:geolocation-!cn&quot;
+</span><span>        ],
+</span><span>        &quot;default_policy&quot;: &quot;proxy&quot;
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<h2 id="yun-xing-trojan-go">运行Trojan-Go</h2>
+<h3 id="serverduan">server端：</h3>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>cd ~/trojan-go
+</span><span>nohup ./trojan-go -config ./example/server.json &amp;
+</span></code></pre>
+<p>如果安装有joker 就更方便了，<code>joker ./trojan-go -config ./example/server.json</code></p>
+<h3 id="clientduan">client端：</h3>
+<p>这里以Windows举例，先到<a href="https://github.com/p4gefau1t/trojan-go/releases">Trojan-Go release页面</a> 下载Windows下的客户端，解压，然后把刚才的client.json配置文件下载下来，放到里面，接着新建一个<code>start.cmd</code>批处理脚本，写入如下内容：</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>trojan-go.exe -config client.json
+</span></code></pre>
+<p>保存退出，运行这个cmd脚本就开启代理了，浏览器配合代理插件，就可以使用愉快的上网了。</p>
+</article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>当range为空时的for循环</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;我们知道在python中for循环常常和range函数一起用，如&amp;lt;code&amp;gt;for i in range(100):&amp;lt;&#x2F;code&amp;gt; ,其中range函数有由三个参数控制，起始值、终止值、步长，返回的是一个可迭代对象,该对象并非列表，而且是左开右闭的，也就是右边的数是不取的，比如range(2,3),那么能取到的值只能是2。&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;在素数判断中，我们判断一个数是否是素数，我们需要对这个…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/dang-rangewei-kong-shi-de-forxun-huan/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/dang-rangewei-kong-shi-de-forxun-huan/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="当range为空时的for循环">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;我们知道在python中for循环常常和range函数一起用，如&amp;lt;code&amp;gt;for i in range(100):&amp;lt;&#x2F;code&amp;gt; ,其中range函数有由三个参数控制，起始值、终止值、步长，返回的是一个可迭代对象,该对象并非列表，而且是左开右闭的，也就是右边的数是不取的，比如range(2,3),那么能取到的值只能是2。&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;在素数判断中，我们判断一个数是否是素数，我们需要对这个…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="当range为空时的for循环">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;我们知道在python中for循环常常和range函数一起用，如&amp;lt;code&amp;gt;for i in range(100):&amp;lt;&#x2F;code&amp;gt; ,其中range函数有由三个参数控制，起始值、终止值、步长，返回的是一个可迭代对象,该对象并非列表，而且是左开右闭的，也就是右边的数是不取的，比如range(2,3),那么能取到的值只能是2。&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;在素数判断中，我们判断一个数是否是素数，我们需要对这个…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>当range为空时的for循环</h1>
+        <span>
+          <br><time datetime="2020-04-16T20:49:46">Apr 16, 2020</time>
+        </span>
+      </header><p>我们知道在python中for循环常常和range函数一起用，如<code>for i in range(100):</code> ,其中range函数有由三个参数控制，起始值、终止值、步长，返回的是一个可迭代对象,该对象并非列表，而且是左开右闭的，也就是右边的数是不取的，比如range(2,3),那么能取到的值只能是2。</p>
+<p>在素数判断中，我们判断一个数是否是素数，我们需要对这个取余，从2开始一直到这个数的平方根，如果出现余数为零的情况则判断它不是素数。那问题来了, 如果判断的数从2开始，那该从range(2,2)里遍历，注意到没有range(2,2)的左右边界是相等的，那么它会返回结果包含哪些数呢？还是会报错？</p>
+<span id="continue-reading"></span><pre style="background-color:#ffffff;color:#323232;"><code><span>n = eval(input())
+</span><span>for i in range(2,n+1):
+</span><span>    for j in range(2,int(i**0.5)+1):
+</span><span>        if i%j==0:
+</span><span>            break
+</span><span>    else:
+</span><span>        print(i)
+</span></code></pre>
+<p>当range函数的右边边界小于等于左边界时（步长为正的情况下），并不会报错，返回的仍是range对象，用list方法将其转变为列表时，返回的是一个空列表，这种情况下搭配for循环使用，并不会执行for语句下对应的内容，即在上述代码中第二个for语句下的if语句不会被执行；如果for还搭配了else，则直接执行else语句下对应的内容，即上述代码中的<code>print(i)</code> 被执行。</p>
+</article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

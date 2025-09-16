@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Hexo博客折腾小记</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;h2 id=&amp;quot;hexoqian-yi-dao-linux&amp;quot;&amp;gt;Hexo迁移到Linux&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;首先，要在Github上设置有本地Linux的SSH公钥。具体设置过程见Github官方教程，大体操作如下,先生成SSH密钥对&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;shell&amp;quot; style=&amp;quot;background-color:#ffffff;color:#323232;&amp;quot; class=&amp;quot;la…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/hexobo-ke-zhe-teng-xiao-ji/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/hexobo-ke-zhe-teng-xiao-ji/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="Hexo博客折腾小记">
+  <meta property="og:description" content="&amp;lt;h2 id=&amp;quot;hexoqian-yi-dao-linux&amp;quot;&amp;gt;Hexo迁移到Linux&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;首先，要在Github上设置有本地Linux的SSH公钥。具体设置过程见Github官方教程，大体操作如下,先生成SSH密钥对&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;shell&amp;quot; style=&amp;quot;background-color:#ffffff;color:#323232;&amp;quot; class=&amp;quot;la…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="Hexo博客折腾小记">
+  <meta name=twitter:description content="&amp;lt;h2 id=&amp;quot;hexoqian-yi-dao-linux&amp;quot;&amp;gt;Hexo迁移到Linux&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;首先，要在Github上设置有本地Linux的SSH公钥。具体设置过程见Github官方教程，大体操作如下,先生成SSH密钥对&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;shell&amp;quot; style=&amp;quot;background-color:#ffffff;color:#323232;&amp;quot; class=&amp;quot;la…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>Hexo博客折腾小记</h1>
+        <span>
+          <br><time datetime="2020-10-08T13:42:22">Oct 08, 2020</time>
+        </span>
+      </header><h2 id="hexoqian-yi-dao-linux">Hexo迁移到Linux</h2>
+<p>首先，要在Github上设置有本地Linux的SSH公钥。具体设置过程见Github官方教程，大体操作如下,先生成SSH密钥对</p>
+<pre data-lang="shell" style="background-color:#ffffff;color:#323232;" class="language-shell "><code class="language-shell" data-lang="shell"><span>$ ssh-keygen -t ed25519 -C &quot;your_email@example.com&quot;
+</span><span>$ eval &quot;$(ssh-agent -s)&quot;
+</span><span>&gt; ssh-add ~/.ssh/id_ed25519
+</span></code></pre>
+<p>并将生成的公钥复制保存到Github的SSH密钥设置里</p>
+<pre data-lang="shell" style="background-color:#ffffff;color:#323232;" class="language-shell "><code class="language-shell" data-lang="shell"><span>$ sudo apt-get install xclip
+</span><span># Downloads and installs xclip. If you don&#39;t have `apt-get`, you might need to use another installer (like `yum`)
+</span><span>
+</span><span>$ xclip -selection clipboard &lt; ~/.ssh/id_ed25519.pub
+</span><span># Copies the contents of the id_ed25519.pub file to your clipboard
+</span></code></pre>
+<p>其次，还要在Linux上安装nodejs, npm和hexo-cli。用apt默认安装的nodejs版本较低，并不能满足Hexo-cli的依赖包，所以要添加额外源进行安装（注意，要安装12.x的，14.x部署到github会报错）</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>curl -sL https://deb.nodesource.com/setup_12.x </span><span style="font-weight:bold;color:#a71d5d;">| </span><span>sudo bash -
+</span></code></pre>
+<p>安装完nodejs后还要安装npm和hexo-cli</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo apt install npm -y
+</span><span>sudo npm install hexo-cli
+</span></code></pre>
+<p>最后，将Hexo文件夹复制（或移动）到Linux操作系统可访问的文件夹下，并在该文件夹下执行如下命令即可</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>npm install
+</span></code></pre>
+<h2 id="zhu-ti-sheng-ji-geng-huan">主题升级/更换</h2>
+<ol>
+<li>下载最新的主题：</li>
+</ol>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>git clone https://github.com/next-theme/hexo-theme-next
+</span></code></pre>
+<ol start="2">
+<li>
+<p>修改主题文件夹下的配置文件：
+利用文本比对工具，比对新旧主题文件夹下的_config.yml配置文件，并按需修改。
+复制旧主题文件夹的source/images下的图像到新主题对应的文件夹下。
+修改新主题文件夹的languages下的翻译文件zh-CN.yml: 添加对应的中文翻译。</p>
+</li>
+<li>
+<p>修改Hexo的_config.yml配置文件，切换主题为新下载的主题</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>theme: next8.0.1
+</span></code></pre>
+</li>
+<li>
+<p>本地调试</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>hexo g &amp;&amp; hexo s
+</span></code></pre>
+</li>
+</ol>
+<h2 id="diyzhu-ti-bu-ju-yu-yang-shi">DIY主题布局与样式</h2>
+<p>主题的布局结构文件放在layout文件夹下；而主题的样式文件放在source/css下，其中的_variables里存放着各中css样式的参数设定，主要修改这里即可。</p>
+<p>一般要配合开发者调试工具进行样式修改，可先定位css的类名，再在主题文件夹下查找目标类名字符串</p>
+<pre data-lang="shell" style="background-color:#ffffff;color:#323232;" class="language-shell "><code class="language-shell" data-lang="shell"><span>grep -rn &quot;class_name&quot; *
+</span></code></pre>
+<h2 id="can-kao">参考：</h2>
+<p><a href="https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key and adding it to the ssh-agent</a></p>
+<p><a href="https://whjkm.github.io/2018/07/17/Hexo%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%92%8CNext%E4%B8%BB%E9%A2%98%E5%8D%87%E7%BA%A7%E4%B9%8B%E5%9D%91/">Hexo版本升级和Next主题升级之坑</a></p>
+</article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>
