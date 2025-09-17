@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>视频切片及免费托管</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;利用Google Cloud Shell，Colab等免费服务（配置好、高性能）或者用自己闲置的VPS将视频切片好后上传Github，可以实现视频存储和在线播放。&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;使用Google Cloud Shell时，为了防止掉线，可利用Tmux配合Htop，将屏幕分屏，一边运行Htop，一边执行其他任务。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/shi-pin-qie-pian-ji-mian-fei-tuo-guan/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/shi-pin-qie-pian-ji-mian-fei-tuo-guan/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="视频切片及免费托管">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;利用Google Cloud Shell，Colab等免费服务（配置好、高性能）或者用自己闲置的VPS将视频切片好后上传Github，可以实现视频存储和在线播放。&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;使用Google Cloud Shell时，为了防止掉线，可利用Tmux配合Htop，将屏幕分屏，一边运行Htop，一边执行其他任务。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="视频切片及免费托管">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;利用Google Cloud Shell，Colab等免费服务（配置好、高性能）或者用自己闲置的VPS将视频切片好后上传Github，可以实现视频存储和在线播放。&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;使用Google Cloud Shell时，为了防止掉线，可利用Tmux配合Htop，将屏幕分屏，一边运行Htop，一边执行其他任务。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>视频切片及免费托管</h1>
+        <span>
+          <br><time datetime="2021-02-23T01:19:51">Feb 23, 2021</time>
+        </span>
+      </header><p>利用Google Cloud Shell，Colab等免费服务（配置好、高性能）或者用自己闲置的VPS将视频切片好后上传Github，可以实现视频存储和在线播放。</p>
+<p>使用Google Cloud Shell时，为了防止掉线，可利用Tmux配合Htop，将屏幕分屏，一边运行Htop，一边执行其他任务。</p>
+<span id="continue-reading"></span><h2 id="shi-pin-xia-zai">视频下载</h2>
+<p>下载器推荐aria2, 因为最常见的http、torrent、magnet下载方式它都支持，而且体积小巧功能强大。使用aria2可以直接在命令行设定下载参数，也可以使用<code>--conf-path</code> 来指定<code>aria2.conf</code>下载参数配置文件，推荐后者，因为方便管理。</p>
+<p>下载磁力时，添加一些好的tracker往往能加速你的下载，这里推荐 https://trackerslist.com/best_aria2.txt 值得注意的是，aria2添加tracker有特定的格式，<code>bt-tracker=tracker1,tracker2,tracker3...</code> ，而巧的是上面提供的链接提供的就是这种格式，无需转换了。</p>
+<p>寻找视频可以去常见的BT/磁力资源站，比如JAVBUS等，也可以利用google搜索<code>index of keyword</code>，比如<code>index of ssni</code>来发现别的小伙伴的个人资源站点，这些资源站点往往都是可以http直链下载，速度超级快。</p>
+<h2 id="shi-pin-qie-pian">视频切片</h2>
+<p>如果视频是h264编码，音频是acc编码，封装格式为mp4的话，可以不转换编码直接切片，速度非常快。如果源视频不是mp4格式，比如mkv或者flv，可以先转换格式，这个过程可能比较漫长，往往转换时间差不多是源视频时长的两倍，也可以和前面一样不转换格式直接采取copy编码的方式切片（但这样可能在网页播放不了，需要用本地播放器播放）。</p>
+<h3 id="bu-zhuan-ma-zhi-jie-qie-pian">不转码直接切片</h3>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>ffmpeg -i output.mkv -c copy -f hls -hls_time</span><span style="font-weight:bold;color:#a71d5d;">=</span><span>5 -hls_list_size 0 -hls_segment_filename hls%</span><span style="color:#0086b3;">4</span><span>d.ts index.m3u8
+</span></code></pre>
+<p><code>-c  copy</code>表示保留源视频的音频、视频的编码格式，不做转换。</p>
+<p><code>-f hls</code> 表示指定封装格式为hls</p>
+<p><code>-hls_time=5</code> 表示指定切片长度（秒），默认为2秒，越小加载就越快。</p>
+<p><code>-hls_list_size 0</code> 设置播放列表保存的最多条目，设置为0会保存有所片信息，默认值为5。</p>
+<p><code>-hls_segment_filename hls%4d.ts</code> 指定生成的切片的文件名，<code>%4d</code> 表示4位数字。</p>
+<h3 id="zhuan-wei-h264-aacbian-ma-de-mp4hou-zai-qie-pian">转为h264/aac编码的mp4后再切片</h3>
+<h4 id="yi-jiang-shi-pin-zhuan-wei-h264-aacbian-ma-de-mp4wen-jian">一、将视频转为h264/aac编码的mp4文件</h4>
+<p>可以预先使用ffprobe查看文件编码方式</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span> ffprobe input.mkv
+</span></code></pre>
+<p>如果得到音视频编码为h264/aac则执行</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span> ffmpeg -i input.mkv -c copy out.mp4
+</span></code></pre>
+<p>否则执行</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span> ffmpeg -i input.mkv -c:v libx264 -c:a libfaac out.mp4
+</span></code></pre>
+<p>其中，<code>-c:v</code>和<code>-c:a</code>分别表示视频编码、音频编码，其后接对应的编码器；若只写<code>-c</code> 则表示音频和视频采用同样的编码参数，比如<code>-c  copy</code>表示保留源视频的音频、视频的编码格式，不做转换。</p>
+<h4 id="er-jiang-mp4wen-jian-qie-pian-bing-sheng-cheng-m3u8">二、将mp4文件切片并生成m3u8</h4>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>ffmpeg -i output.mp4 -c copy -f hls -bsf:v h264_mp4toannexb -hls_time</span><span style="font-weight:bold;color:#a71d5d;">=</span><span>5 -hls_list_size 0 -hls_segment_filename hls%</span><span style="color:#0086b3;">4</span><span>d.ts index.m3u8
+</span></code></pre>
+<p><code>-bsf:v h264_mp4toannexb</code> 指定h264以字节流AnnexB格式封装。</p>
+<p>H264有两种封装方式：字节流AnnexB格式， AVCC格式。AnnexB格式用于实时播放，AVCC格式用于存储。</p>
+<p>注意，上述参数中，视频片段后缀可随意发挥，比如将 <code>ts</code> 改为 <code>js</code> 。但还是m3u8后缀名不可更改，否则不会生成对于的m3u8格式文件，等生成完毕m3u8文件后，可随意更改后缀而无影响。</p>
+<h3 id="can-kao">参考</h3>
+<p>https://www.ruanyifeng.com/blog/2020/01/ffmpeg.html</p>
+<p>https://blog.cauchyschwarz.com/blog/note/2020/09/05/ffmpeg.html</p>
+<p>https://www.cnblogs.com/fieldtianye/p/13427303.html</p>
+<p>https://www.webzhishi.com/ffmpeg-tt-m3u8/</p>
+<p>https://blog.csdn.net/hejjunlin/article/details/71001593</p>
+<p>https://blog.csdn.net/amazing_yangle/article/details/49029687</p>
+<p>https://www.cnblogs.com/vczf/p/13818609.html</p>
+<p>https://github.com/aisuhua/ffmpeg-demo</p>
+<p>https://www.daguanren.cc/post/FFmpeg.html</p>
+<p>https://docs.peer5.com/guides/production-ready-hls-vod/</p>
+<h2 id="shi-pin-fa-bu">视频发布</h2>
+<p>切好的视频可以发布到网上方便观看和分享。大多数数网友都是扒免费图床的API，通过将TS视频片段伪装成图片后上传到图床来实现视频托管，不少个人视频站都是这么干的。这里介绍的是上传到Github的方法，因为Github不仅稳定，而且有不少Github加速工具可以用，比如Jsdelivr cdn，此外不少静态托管网站也对接了Github，一键部署，比如vercel，vercel有cdn支持而且每月提供100g流量，自用的话够了。最关键的是，视频的掌控权还在自己手里，想要修改内容可以git clone下来，想要移除视频可以直接删库或改为私有仓库，想要再发布到其他平台可以方便的clone然后上传。</p>
+<h3 id="gitshe-zhi">Git设置</h3>
+<p>设置本地ssh和git环境</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>mkdir -p ~/.ssh/
+</span><span style="color:#62a35c;">echo </span><span style="color:#183691;">&quot;$</span><span>SSH_PRI_KEY</span><span style="color:#183691;">&quot; </span><span style="font-weight:bold;color:#a71d5d;">&gt; </span><span>~/.ssh/id_rsa
+</span><span>chmod 700 ~/.ssh
+</span><span>chmod 600 ~/.ssh/id_rsa
+</span><span>ssh-add ~/.ssh/id_rsa
+</span><span>ssh-keyscan github.com </span><span style="font-weight:bold;color:#a71d5d;">&gt;&gt; </span><span>~/.ssh/known_hosts
+</span><span>git config --global user.email </span><span style="color:#183691;">&quot;github@chan.im&quot;
+</span><span>git config --global user.name </span><span style="color:#183691;">&quot;chan&quot;
+</span></code></pre>
+<h3 id="shang-chuan-dao-github">上传到Github</h3>
+<p>先通过API或其他方式创建一个Github仓库，这里给出API方式创建Github仓库的一个示例</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>curl \
+</span><span>-X POST \
+</span><span>-H </span><span style="color:#183691;">&quot;Authorization: token $</span><span>ACCESS_TOKEN</span><span style="color:#183691;">&quot; </span><span>\
+</span><span>-H </span><span style="color:#183691;">&quot;Content-Type: application/json&quot; </span><span>\
+</span><span>https://api.github.com/user/repos \
+</span><span>-d </span><span style="color:#183691;">&quot;{</span><span style="color:#0086b3;">\&quot;</span><span style="color:#183691;">name</span><span style="color:#0086b3;">\&quot;</span><span style="color:#183691;">: </span><span style="color:#0086b3;">\&quot;</span><span style="color:#183691;">$</span><span>repo</span><span style="color:#0086b3;">\&quot;</span><span style="color:#183691;">}&quot;
+</span></code></pre>
+<p>然后将切好的视频片段连同m3u8文件一起push到Github。值得注意的是，Git push时会把所有文件打包成一个大文件上传，而Git传输对单文件大小有限制，即使使用git-lfs能上传，限制仍然非常多。我们可以通过每次commit push上传一小部分文件，多次push，解决这个问题。使用循环语句解决方案如下：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-weight:bold;color:#a71d5d;">for</span><span> i </span><span style="font-weight:bold;color:#a71d5d;">in </span><span>{0..9}</span><span style="font-weight:bold;color:#a71d5d;">;do
+</span><span>  </span><span style="font-weight:bold;color:#a71d5d;">for</span><span> j </span><span style="font-weight:bold;color:#a71d5d;">in </span><span>{0..9}</span><span style="font-weight:bold;color:#a71d5d;">;do
+</span><span>    files</span><span style="font-weight:bold;color:#a71d5d;">=</span><span>(index$i$j</span><span style="font-weight:bold;color:#a71d5d;">??</span><span>.ts)
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">if </span><span style="color:#62a35c;">[ </span><span>-f ${files[</span><span style="color:#0086b3;">0</span><span>]} </span><span style="color:#62a35c;">]</span><span style="font-weight:bold;color:#a71d5d;">;then
+</span><span>      git add </span><span style="color:#183691;">&quot;${</span><span>files[@]</span><span style="color:#183691;">}&quot;
+</span><span>      git commit -m </span><span style="color:#183691;">&quot;$</span><span>i</span><span style="color:#183691;">$</span><span>j</span><span style="color:#183691;"> st commit&quot;
+</span><span>      git push
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">else
+</span><span>      git push
+</span><span>      </span><span style="color:#62a35c;">exit</span><span> 0
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">fi
+</span><span>  </span><span style="font-weight:bold;color:#a71d5d;">done
+</span><span style="font-weight:bold;color:#a71d5d;">done
+</span></code></pre>
+<p>参考：</p>
+<p>https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api</p>
+<p>https://my.oschina.net/eduOSS/blog/287824</p>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

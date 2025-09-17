@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Telegram-cli自动化</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;an-zhuang-telegram-cli&amp;quot;&amp;gt;安装Telegram-cli&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;先把仓库源码clone下来（更换为kenorb-contrib，源仓库无法build）:&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;sh&amp;quot; style=&amp;quot;background-color:#ffffff;color:#32…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/telegram-clizi-dong-hua/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/telegram-clizi-dong-hua/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="Telegram-cli自动化">
+  <meta property="og:description" content="&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;an-zhuang-telegram-cli&amp;quot;&amp;gt;安装Telegram-cli&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;先把仓库源码clone下来（更换为kenorb-contrib，源仓库无法build）:&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;sh&amp;quot; style=&amp;quot;background-color:#ffffff;color:#32…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="Telegram-cli自动化">
+  <meta name=twitter:description content="&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;an-zhuang-telegram-cli&amp;quot;&amp;gt;安装Telegram-cli&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;先把仓库源码clone下来（更换为kenorb-contrib，源仓库无法build）:&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;sh&amp;quot; style=&amp;quot;background-color:#ffffff;color:#32…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>Telegram-cli自动化</h1>
+        <span>
+          <br><time datetime="2020-05-08T13:06:00">May 08, 2020</time>
+        </span>
+      </header><span id="continue-reading"></span><h2 id="an-zhuang-telegram-cli">安装Telegram-cli</h2>
+<p>先把仓库源码clone下来（更换为kenorb-contrib，源仓库无法build）:</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>git clone --recursive https://github.com/kenorb-contrib/tg.git </span><span style="font-weight:bold;color:#a71d5d;">&amp;&amp; </span><span style="color:#62a35c;">cd</span><span> tg
+</span></code></pre>
+<p>再安装相关依赖 (ubuntu/debian)：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev libjansson-dev libpython-dev libpython3-dev libgcrypt-dev zlib1g-dev lua-lgi make -y
+</span></code></pre>
+<p>然后，开始编译:</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>./configure
+</span><span>make
+</span></code></pre>
+<p><mark>换源后不会出现以下依赖问题，可忽略</mark></p>
+<p>这一步可能会出问题，如果在执行<code>./configure</code> 时报错<code>zlib error</code>, 则应通过安装zlib依赖来解决:</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>sudo apt install zlib1g-dev
+</span></code></pre>
+<p>如果是报<code>openssl error</code>, 则是因为openssl的api升级了，可通过安装如下指定版本号的libssl来解决：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo apt install libssl1.0-dev
+</span></code></pre>
+<h2 id="shi-yong">使用</h2>
+<p>可通过执行如下代码启动Telegram-cli客户端，注意，要在科学上网环境下执行！</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>bin/telegram-cli -k tg-server.pub
+</span></code></pre>
+<p>如果没有配置好科学上网环境，启动之后是用不了的，可以通过<code>proxychains</code> 让命令行走代理(proxychains的配置之前有讲过，可以翻一下之前的文章)：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>proxychains bin/telegram-cli -k tg-server.pub
+</span></code></pre>
+<p>第一次启动，会让你输入手机号，别忘了+86国际区号哦，然后一路验证。验证完成后就可以使用了，这里列出一些常用语法:</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>msg </span><span style="font-weight:bold;color:#a71d5d;">&lt;</span><span>peer</span><span style="font-weight:bold;color:#a71d5d;">&gt;</span><span> sometext </span><span style="font-style:italic;color:#969896;">#例如:msg @somebody hello
+</span><span>send_file </span><span style="font-weight:bold;color:#a71d5d;">&lt;</span><span>peer</span><span style="font-weight:bold;color:#a71d5d;">&gt;</span><span> file_path </span><span style="font-style:italic;color:#969896;">#例如:send_file @somebody /root/tg.log
+</span><span>help </span><span style="font-style:italic;color:#969896;"># 更多用法直接输入help
+</span></code></pre>
+<h2 id="zi-dong-hua">自动化</h2>
+<p>利用Linux下的crontab设置如下定时任务，可完成定时发消息的任务</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>telegram-cli_PATH/bin/telegram-cli -W -e </span><span style="color:#183691;">&quot;msg &lt;peer&gt; sometext&quot;
+</span></code></pre>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

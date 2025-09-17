@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>使用jsdom解决用PyExecJS执行含有document、window等对象的js代码时出现的问题</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;h2 id=&amp;quot;jie-jue-domyi-lai&amp;quot;&amp;gt;解决dom依赖&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;首先，全局安装jsdom，并获取安装路径。&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;bash&amp;quot; style=&amp;quot;background-color:#ffffff;color:#323232;&amp;quot; class=&amp;quot;language-bash &amp;quot;&amp;gt;&amp;lt;code class=&amp;quot;language-bash&amp;quot; data-lang=…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/shi-yong-jsdomjie-jue-yong-pyexecjszhi-xing-han-you-document-windowdeng-dui-xiang-de-jsdai-ma-shi-chu-xian-de-wen-ti/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/shi-yong-jsdomjie-jue-yong-pyexecjszhi-xing-han-you-document-windowdeng-dui-xiang-de-jsdai-ma-shi-chu-xian-de-wen-ti/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="使用jsdom解决用PyExecJS执行含有document、window等对象的js代码时出现的问题">
+  <meta property="og:description" content="&amp;lt;h2 id=&amp;quot;jie-jue-domyi-lai&amp;quot;&amp;gt;解决dom依赖&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;首先，全局安装jsdom，并获取安装路径。&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;bash&amp;quot; style=&amp;quot;background-color:#ffffff;color:#323232;&amp;quot; class=&amp;quot;language-bash &amp;quot;&amp;gt;&amp;lt;code class=&amp;quot;language-bash&amp;quot; data-lang=…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="使用jsdom解决用PyExecJS执行含有document、window等对象的js代码时出现的问题">
+  <meta name=twitter:description content="&amp;lt;h2 id=&amp;quot;jie-jue-domyi-lai&amp;quot;&amp;gt;解决dom依赖&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;首先，全局安装jsdom，并获取安装路径。&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;bash&amp;quot; style=&amp;quot;background-color:#ffffff;color:#323232;&amp;quot; class=&amp;quot;language-bash &amp;quot;&amp;gt;&amp;lt;code class=&amp;quot;language-bash&amp;quot; data-lang=…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>使用jsdom解决用PyExecJS执行含有document、window等对象的js代码时出现的问题</h1>
+        <span>
+          <br><time datetime="2020-09-17T10:40:17">Sep 17, 2020</time>
+        </span>
+      </header><h2 id="jie-jue-domyi-lai">解决dom依赖</h2>
+<p>首先，全局安装jsdom，并获取安装路径。</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>npm i jsdom -g
+</span><span>npm root -g
+</span></code></pre>
+<p>其次，在要执行的js代码的最前面加上如下代码。</p>
+<pre data-lang="js" style="background-color:#ffffff;color:#323232;" class="language-js "><code class="language-js" data-lang="js"><span style="font-weight:bold;color:#a71d5d;">const </span><span style="color:#0086b3;">jsdom </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#62a35c;">require</span><span>(</span><span style="color:#183691;">&quot;jsdom&quot;</span><span>);
+</span><span style="font-weight:bold;color:#a71d5d;">const </span><span>{ </span><span style="color:#0086b3;">JSDOM </span><span>} </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>jsdom;
+</span><span style="font-weight:bold;color:#a71d5d;">const </span><span style="color:#0086b3;">dom </span><span style="font-weight:bold;color:#a71d5d;">= new </span><span>JSDOM(</span><span style="color:#183691;">`&lt;!DOCTYPE html&gt;&lt;p&gt;Hello world&lt;/p&gt;`</span><span>);
+</span><span>window </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>dom.window;
+</span><span>document </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>window.document;
+</span><span style="color:#0086b3;">XMLHttpRequest </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>window.XMLHttpRequest;
+</span></code></pre>
+<p>最后，指定jsom路径并执行js代码。</p>
+<pre data-lang="python" style="background-color:#ffffff;color:#323232;" class="language-python "><code class="language-python" data-lang="python"><span>js </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>execjs.compile(js_text,cwd</span><span style="font-weight:bold;color:#a71d5d;">=r</span><span style="color:#183691;">&#39;C:</span><span style="color:#0086b3;">\U</span><span style="color:#183691;">sers</span><span style="color:#0086b3;">\w</span><span style="color:#183691;">001</span><span style="font-weight:bold;color:#a71d5d;">\A</span><span style="color:#183691;">ppData</span><span style="color:#0086b3;">\R</span><span style="color:#183691;">oaming</span><span style="color:#0086b3;">\n</span><span style="color:#183691;">pm</span><span style="color:#0086b3;">\n</span><span style="color:#183691;">ode_modules&#39;</span><span>)
+</span><span>result </span><span style="font-weight:bold;color:#a71d5d;">= </span><span>js.call(function_name,arg_1,arg_2,</span><span style="color:#0086b3;">...</span><span>,arg_n)
+</span></code></pre>
+<h2 id="jie-jue-atobyi-lai">解决atob依赖</h2>
+<p>首先，安装atob依赖。</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>npm i atob -g
+</span></code></pre>
+<p>其次，在要执行的js代码最前面加上如下代码。</p>
+<pre data-lang="js" style="background-color:#ffffff;color:#323232;" class="language-js "><code class="language-js" data-lang="js"><span style="font-weight:bold;color:#a71d5d;">const </span><span style="color:#0086b3;">atob </span><span style="font-weight:bold;color:#a71d5d;">= </span><span style="color:#62a35c;">require</span><span>(</span><span style="color:#183691;">&#39;atob&#39;</span><span>);
+</span></code></pre>
+<p>最后，执行js代码即可</p>
+<p>参考：</p>
+<p>https://www.cnblogs.com/huchong/p/11044238.html</p>
+<p>https://segmentfault.com/q/1010000015660773</p>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

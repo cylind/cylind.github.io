@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>个人发卡站解决方案</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;打造一款属于自己的发卡站&#x2F;小卖铺。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;fa-qia-xi-tong&amp;quot;&amp;gt;发卡系统&amp;lt;&#x2F;h2&amp;gt;&amp;lt;h3 id=&amp;quot;huan-jing-pei-zhi&amp;quot;&amp;gt;环境配置：&amp;lt;&#x2F;h3&amp;gt;&amp;lt;p&amp;gt;web服务器：&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;bash&amp;quot; style=&amp;quot;background-color:#ffffff…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/ge-ren-fa-qia-zhan-jie-jue-fang-an/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/ge-ren-fa-qia-zhan-jie-jue-fang-an/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="个人发卡站解决方案">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;打造一款属于自己的发卡站&#x2F;小卖铺。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;fa-qia-xi-tong&amp;quot;&amp;gt;发卡系统&amp;lt;&#x2F;h2&amp;gt;&amp;lt;h3 id=&amp;quot;huan-jing-pei-zhi&amp;quot;&amp;gt;环境配置：&amp;lt;&#x2F;h3&amp;gt;&amp;lt;p&amp;gt;web服务器：&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;bash&amp;quot; style=&amp;quot;background-color:#ffffff…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="个人发卡站解决方案">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;打造一款属于自己的发卡站&#x2F;小卖铺。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;fa-qia-xi-tong&amp;quot;&amp;gt;发卡系统&amp;lt;&#x2F;h2&amp;gt;&amp;lt;h3 id=&amp;quot;huan-jing-pei-zhi&amp;quot;&amp;gt;环境配置：&amp;lt;&#x2F;h3&amp;gt;&amp;lt;p&amp;gt;web服务器：&amp;lt;&#x2F;p&amp;gt;&amp;lt;pre data-lang=&amp;quot;bash&amp;quot; style=&amp;quot;background-color:#ffffff…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>个人发卡站解决方案</h1>
+        <span>
+          <br><time datetime="2020-10-21T17:55:13">Oct 21, 2020</time>
+        </span>
+      </header><p>打造一款属于自己的发卡站/小卖铺。</p>
+<span id="continue-reading"></span><h2 id="fa-qia-xi-tong">发卡系统</h2>
+<h3 id="huan-jing-pei-zhi">环境配置：</h3>
+<p>web服务器：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>sudo apt install nginx
+</span></code></pre>
+<p>数据库依赖：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>sudo apt install mariadb-server redis-server
+</span></code></pre>
+<p>https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-debian-10</p>
+<p>php依赖：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>sudo apt install php-cli php-redis
+</span></code></pre>
+<p>fileinfo检查：https://my.oschina.net/HeAlvin/blog/3075963</p>
+<p>opcache扩展：https://learnku.com/articles/18782</p>
+<p>composer安装：https://www.runoob.com/w3cnote/composer-install-and-usage.html</p>
+<h3 id="xia-zai-fa-qia-yuan-ma">下载发卡源码</h3>
+<p>注意点：</p>
+<ol>
+<li>更改网站拥有者为www-data</li>
+<li>要自己先创建好数据库再配置<code>.env</code></li>
+</ol>
+<h3 id="zhi-fu-bao-dang-mian-fu-dui-jie">支付宝当面付对接</h3>
+<p>申请当面付</p>
+<p>https://openhome.alipay.com/platform/appManage.htm</p>
+<p>自研开发</p>
+<p>网页&amp;移动应用（会有一个默认的应用2.0）</p>
+<p>默认的应用2.0中添加公钥（接口加签）（验证手机号，下载工具，生成密钥对）</p>
+<p>在发卡支付网关管理界面，填入</p>
+<p>商户id：appid</p>
+<p>商户key：支付宝公钥（注意不是自己生成的公钥）</p>
+<p>商户密钥：自己生成的密钥</p>
+<h3 id="tian-jia-jin-cheng-shou-hu">添加进程守护</h3>
+<p>https://learnku.com/laravel/t/3592/using-supervisor-to-manage-laravel-queue-processes</p>
+<pre data-lang="ini" style="background-color:#ffffff;color:#323232;" class="language-ini "><code class="language-ini" data-lang="ini"><span style="font-weight:bold;color:#a71d5d;">[program:laravel-worker]
+</span><span>process_name</span><span style="font-weight:bold;color:#a71d5d;">=%(program_name)</span><span>s_</span><span style="font-weight:bold;color:#a71d5d;">%(process_num)</span><span style="color:#0086b3;">02d
+</span><span>command</span><span style="font-weight:bold;color:#a71d5d;">=</span><span>php </span><span style="font-weight:bold;color:#a71d5d;">/</span><span>var</span><span style="font-weight:bold;color:#a71d5d;">/</span><span>www</span><span style="font-weight:bold;color:#a71d5d;">/</span><span>faka</span><span style="font-weight:bold;color:#a71d5d;">/</span><span>artisan queue</span><span style="font-weight:bold;color:#a71d5d;">:</span><span>work </span><span style="font-weight:bold;color:#a71d5d;">--</span><span>tries</span><span style="font-weight:bold;color:#a71d5d;">=</span><span style="color:#0086b3;">3
+</span><span>autostart</span><span style="font-weight:bold;color:#a71d5d;">=</span><span style="color:#0086b3;">true
+</span><span>autorestart</span><span style="font-weight:bold;color:#a71d5d;">=</span><span style="color:#0086b3;">true
+</span><span>user</span><span style="font-weight:bold;color:#a71d5d;">=</span><span>www</span><span style="font-weight:bold;color:#a71d5d;">-</span><span>data
+</span><span>numprocs</span><span style="font-weight:bold;color:#a71d5d;">=</span><span style="color:#0086b3;">8
+</span><span>redirect_stderr</span><span style="font-weight:bold;color:#a71d5d;">=</span><span style="color:#0086b3;">true
+</span><span>stdout_logfile</span><span style="font-weight:bold;color:#a71d5d;">=/</span><span>var</span><span style="font-weight:bold;color:#a71d5d;">/</span><span>log</span><span style="font-weight:bold;color:#a71d5d;">/</span><span>supervisor</span><span style="font-weight:bold;color:#a71d5d;">/</span><span>laravel</span><span style="font-weight:bold;color:#a71d5d;">-</span><span>queue</span><span style="font-weight:bold;color:#a71d5d;">.</span><span>log
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>mkdir -p /var/log/supervisor/
+</span><span>touch /var/log/supervisor/laravel-queue.log
+</span><span>chown www-data /var/log/supervisor/laravel-queue.log
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#969896;"># zsh报错的话，请写成bash脚本
+</span><span>supervisorctl start laravel-worker:</span><span style="font-weight:bold;color:#a71d5d;">*
+</span><span>
+</span></code></pre>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#969896;"># 重启服务
+</span><span>supervisorctl restart all
+</span></code></pre>
+<p>常见错误：</p>
+<p>https://segmentfault.com/a/1190000007232022</p>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

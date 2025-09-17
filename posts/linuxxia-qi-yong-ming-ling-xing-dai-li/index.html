@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Linux下启用命令行代理</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;首先是配置一个科学上网的环境，可以通过安装目前比较流行的V2ray或ShadowsocksR来实现。其次，需要让命令行中执行的程序的流量走代理通道，这个可以通过安装proxychains来实现。最后，开始享受你的愉快探索之旅吧！&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h1 id=&amp;quot;ke-xue-shang-wang&amp;quot;&amp;gt;科学上网&amp;lt;&#x2F;h1&amp;gt;&amp;lt;h2 id…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/linuxxia-qi-yong-ming-ling-xing-dai-li/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/linuxxia-qi-yong-ming-ling-xing-dai-li/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="Linux下启用命令行代理">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;首先是配置一个科学上网的环境，可以通过安装目前比较流行的V2ray或ShadowsocksR来实现。其次，需要让命令行中执行的程序的流量走代理通道，这个可以通过安装proxychains来实现。最后，开始享受你的愉快探索之旅吧！&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h1 id=&amp;quot;ke-xue-shang-wang&amp;quot;&amp;gt;科学上网&amp;lt;&#x2F;h1&amp;gt;&amp;lt;h2 id…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="Linux下启用命令行代理">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;首先是配置一个科学上网的环境，可以通过安装目前比较流行的V2ray或ShadowsocksR来实现。其次，需要让命令行中执行的程序的流量走代理通道，这个可以通过安装proxychains来实现。最后，开始享受你的愉快探索之旅吧！&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h1 id=&amp;quot;ke-xue-shang-wang&amp;quot;&amp;gt;科学上网&amp;lt;&#x2F;h1&amp;gt;&amp;lt;h2 id…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>Linux下启用命令行代理</h1>
+        <span>
+          <br><time datetime="2020-05-03T11:59:50">May 03, 2020</time>
+        </span>
+      </header><p>首先是配置一个科学上网的环境，可以通过安装目前比较流行的V2ray或ShadowsocksR来实现。其次，需要让命令行中执行的程序的流量走代理通道，这个可以通过安装proxychains来实现。最后，开始享受你的愉快探索之旅吧！</p>
+<span id="continue-reading"></span><h1 id="ke-xue-shang-wang">科学上网</h1>
+<h2 id="v2ray">V2ray</h2>
+<h3 id="an-zhuang">安装</h3>
+<p>v2ray是不区分客户端和服务端版本的，安装v2ray后，我们通过修改配置文件的inbounds和outbounds规则，让它既可以做服务端也可以做客户端。</p>
+<p>安装方法多种多样，这里介绍通过官方提供的脚本一键式安装的方法：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>wget https://install.direct/go.sh
+</span><span>sudo bash go.sh
+</span></code></pre>
+<p>如果你的操作系统是debian/ubuntu的话，这个脚本默认还会设置开机自启v2ray服务。</p>
+<p>开启和关闭v2ray的简单指令如下：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>service v2ray start
+</span><span>service v2ray stop
+</span><span>service v2ray restart
+</span><span>service v2ray reload
+</span></code></pre>
+<h3 id="pei-zhi">配置</h3>
+<p>v2ray的配置文件是 <code>/etc/v2ray/config.json</code> , 可以参照网上的教程来修改这个配置文件，当然也有那种自动生成配置文件的在线工具，如果你不想那么麻烦的话，把自己在windows下用v2rayN图形化客户端生成的配置文件拿过去直接用也是没有问题的。</p>
+<h2 id="shadowsocksr">ShadowsocksR</h2>
+<h3 id="an-zhuang-1">安装</h3>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>git clone https://github.com/shadowsocksr/shadowsocksr.git
+</span></code></pre>
+<p>或者<a href="https://github.com/shadowsocksrr/shadowsocksr/releases">点击这里</a> 下载打包好的文件,然后解压。</p>
+<p>最后，初始化配置：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>bash initcfg.sh
+</span></code></pre>
+<h3 id="pei-zhi-bing-qi-dong">配置并启动</h3>
+<p>找到<code>user-config.json</code> 并修改配置，主要修改以下内容</p>
+<pre data-lang="json" style="background-color:#ffffff;color:#323232;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#183691;">&quot;server&quot;</span><span>: </span><span style="color:#183691;">&quot;ssr.xxx.com&quot;</span><span>,
+</span><span style="color:#183691;">&quot;server_port&quot;</span><span>: </span><span style="color:#0086b3;">443</span><span>,
+</span><span style="color:#183691;">&quot;local_address&quot;</span><span>: </span><span style="color:#183691;">&quot;127.0.0.1&quot;</span><span>, 
+</span><span style="color:#183691;">&quot;local_port&quot;</span><span>: </span><span style="color:#0086b3;">1081</span><span>, 
+</span><span style="color:#183691;">&quot;password&quot;</span><span>: </span><span style="color:#183691;">&quot;xxxx&quot;</span><span>,
+</span><span style="color:#183691;">&quot;method&quot;</span><span>: </span><span style="color:#183691;">&quot;chacha20-ietf&quot;</span><span>,
+</span><span style="color:#183691;">&quot;protocol&quot;</span><span>: </span><span style="color:#183691;">&quot;auth_aes128_md5&quot;</span><span>,
+</span><span style="color:#183691;">&quot;protocol_param&quot;</span><span>: </span><span style="color:#183691;">&quot;145487:vlQz38&quot;</span><span>,
+</span><span style="color:#183691;">&quot;obfs&quot;</span><span>: </span><span style="color:#183691;">&quot;tls1.2_ticket_auth&quot;</span><span>,
+</span><span style="color:#183691;">&quot;obfs_param&quot;</span><span>: </span><span style="color:#183691;">&quot;update.microsoft.com&quot;</span><span>,
+</span></code></pre>
+<p>然后，切换到shadowsocks目录，会发现一个local.py文件，在这个目录下执行:</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>python local.py -d start
+</span></code></pre>
+<p>验证一下，是否已经成功了：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>curl --socks5-hostname 127.0.0.1:1081 www.google.com
+</span></code></pre>
+<p>返回网页数据则说明成功了。</p>
+<h1 id="ming-ling-xing-dai-li">命令行代理</h1>
+<h2 id="proxychains">proxychains</h2>
+<p>ubuntu下直接安装即可:</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>sudo apt install proxychains
+</span></code></pre>
+<p>它的配置文件路径为 <code>/etc/proxychains.conf</code> ，需要修改的内容在文件内容的最后面，默认是设置tor的配置，把它注释掉，并添加我们的本地代理地址,如：</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>socks5 127.0.0.1:1080
+</span></code></pre>
+<p>使用起来很简单，只需要在需要执行的命令前加上<code>proxychains</code> 即可，如：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>proxychains wget https://www.google.com
+</span></code></pre>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

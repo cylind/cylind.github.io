@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Debian10上安装LEMP建站教程</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;记一次建站过程。宝塔建站是不可能的，lnmp一键脚本又得编译，小机器顶不住哇，所以选择了手动安装Nginx、MariaDB以及PHP的二进制文件来建站，记录如下。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;p&amp;gt;下面的过程中，我们使用有sudo权限的用户进行操作。建站前先更新软件源，sudo apt update。&amp;lt;&#x2F;p&amp;gt;&amp;lt;h2 id=&amp;quot;an-zhua…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/debian10shang-an-zhuang-lempjian-zhan-jiao-cheng/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/debian10shang-an-zhuang-lempjian-zhan-jiao-cheng/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="Debian10上安装LEMP建站教程">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;记一次建站过程。宝塔建站是不可能的，lnmp一键脚本又得编译，小机器顶不住哇，所以选择了手动安装Nginx、MariaDB以及PHP的二进制文件来建站，记录如下。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;p&amp;gt;下面的过程中，我们使用有sudo权限的用户进行操作。建站前先更新软件源，sudo apt update。&amp;lt;&#x2F;p&amp;gt;&amp;lt;h2 id=&amp;quot;an-zhua…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="Debian10上安装LEMP建站教程">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;记一次建站过程。宝塔建站是不可能的，lnmp一键脚本又得编译，小机器顶不住哇，所以选择了手动安装Nginx、MariaDB以及PHP的二进制文件来建站，记录如下。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;p&amp;gt;下面的过程中，我们使用有sudo权限的用户进行操作。建站前先更新软件源，sudo apt update。&amp;lt;&#x2F;p&amp;gt;&amp;lt;h2 id=&amp;quot;an-zhua…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>Debian10上安装LEMP建站教程</h1>
+        <span>
+          <br><time datetime="2020-10-01T17:57:10">Oct 01, 2020</time>
+        </span>
+      </header><p>记一次建站过程。宝塔建站是不可能的，lnmp一键脚本又得编译，小机器顶不住哇，所以选择了手动安装Nginx、MariaDB以及PHP的二进制文件来建站，记录如下。</p>
+<span id="continue-reading"></span>
+<p>下面的过程中，我们使用有sudo权限的用户进行操作。建站前先更新软件源，sudo apt update。</p>
+<h2 id="an-zhuang-san-da-zu-jian">安装三大组件</h2>
+<p>下面开始安装建站中最常见的三大组件Nginx，MariaDB，PHP，它们分别起提供web服务，存储数据和处理内容的作用。</p>
+<h3 id="an-zhuang-nginx">安装Nginx</h3>
+<p>安装web服务器，Nginx。</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo apt install nginx
+</span></code></pre>
+<p>安装完后，可在浏览器直接输入ip地址访问，查看效果</p>
+<h3 id="an-zhuang-mariadb">安装MariaDB</h3>
+<p>安装sql数据库，MariaDB。MariaDB兼容MySQL，是MySQL的开源替代。</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo apt install mariadb-server
+</span></code></pre>
+<p>安装完后进行安全检查：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo mysql_secure_installation
+</span></code></pre>
+<p>首先，它会提示你输入数据库的root密码（注意，不是linux系统root密码），因为是刚刚安装还没设置有密码，所以直接回车即可。</p>
+<p>紧接着，它会提示你要不要设置数据库root密码，选择N，因为MariaDB使用的是一种特别的验证方式，通过判断当前linux用户的权限来验证，比设置密码的方式更为安全。</p>
+<p>接下来的几项，选Y，最后按回车接受所有默认的子选项即可。这个操作会移除匿名用户和、test database以及禁止root远程登录，并加载刚才你设置的更改规则。</p>
+<p>安装完成后，测试一下数据库。登录数据库服务器 MariaDB Server：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo mariadb
+</span></code></pre>
+<p>连接成功后会看到类似如下的输出：</p>
+<blockquote>
+<p>Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 74
+Server version: 10.3.15-MariaDB-1 Debian 10</p>
+<p>Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</p>
+<p>Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.</p>
+<p>MariaDB [(none)]&gt;</p>
+</blockquote>
+<h3 id="an-zhuang-php">安装PHP</h3>
+<p>先是安装基本的php插件php-fpm 和php-mysql，其中php-fpm是负责处理由Nginx传来的PHP请求，而php-mysql则负责与mysql类数据库进行交互。在安装php-fpm、php-mysql时，php会作为依赖安装，所以不必再加入php。</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo apt install php-fpm php-mysql
+</span></code></pre>
+<p>然后，告诉PHP只接受服务器上实际存在的文件的URI。 这减轻了一个安全漏洞，即如果文件系统中不存在请求的.php文件，则PHP解释器可能会被诱使允许执行任意代码。</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo sed -i </span><span style="color:#183691;">&#39;s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g&#39;</span><span> /etc/php/7.4/fpm/php.ini
+</span></code></pre>
+<h2 id="pei-zhi-shu-ju-ku">配置数据库</h2>
+<p>首先，连接到数据库：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo mariadb
+</span></code></pre>
+<p>然后，开始创建一个名为userdb的数据库</p>
+<pre data-lang="sql" style="background-color:#ffffff;color:#323232;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="font-weight:bold;color:#a71d5d;">CREATE DATABASE </span><span>userdb DEFAULT CHARACTER SET utf8 COLLATE </span><span style="font-weight:bold;color:#795da3;">utf8_unicode_ci</span><span>;
+</span></code></pre>
+<p>接着，把这个数据的权限授予一个用户管理，这里设置用户名wordpress_user,对应密码设置为password</p>
+<pre data-lang="sql" style="background-color:#ffffff;color:#323232;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="font-weight:bold;color:#a71d5d;">GRANT</span><span> ALL ON userdb.* TO </span><span style="color:#183691;">&#39;user&#39;</span><span>@</span><span style="color:#183691;">&#39;localhost&#39;</span><span> IDENTIFIED BY </span><span style="color:#183691;">&#39;password&#39;</span><span>;
+</span></code></pre>
+<p>最后，刷新权限</p>
+<pre data-lang="sql" style="background-color:#ffffff;color:#323232;" class="language-sql "><code class="language-sql" data-lang="sql"><span>FLUSH PRIVILEGES;
+</span></code></pre>
+<p>退出MariaDB：</p>
+<pre data-lang="sql" style="background-color:#ffffff;color:#323232;" class="language-sql "><code class="language-sql" data-lang="sql"><span>EXIT;
+</span></code></pre>
+<h2 id="an-zhuang-typecho">安装Typecho</h2>
+<h3 id="xia-zai-typecho">下载Typecho</h3>
+<p>到官网http://typecho.org/download下载最新版，解压并放到/var/www/your_domain文件夹，并更改所有者：</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>chown -R www-data:www-data /var/www/your_domain
+</span></code></pre>
+<h2 id="an-zhuang-phpcha-jian">安装php插件</h2>
+<p>不同的模板要求不同的PHP插件，具体看文档要求</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>sudo apt install php-curl php-mbstring php-xmlrpc
+</span></code></pre>
+<h3 id="pei-zhi-nginx">配置Nginx</h3>
+<p>建议直接到https://www.digitalocean.com/community/tools/nginx, 在线生配置文件(建议选有wordpress优化的配置)并按提示覆盖到/etc/nginx目录下。</p>
+<p>然后，测试配置文件是否有误：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo nginx -t
+</span></code></pre>
+<p>最后，重载Nginx配置文件使之生效：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo systemctl reload nginx
+</span></code></pre>
+<h3 id="deng-lu-typecho">登录Typecho</h3>
+<p>直接登录网站，进行Typecho在线安装配置，过程中需要输入在上面配置的数据库信息。</p>
+<h2 id="an-zhuang-wordpress">安装Wordpress</h2>
+<h3 id="an-zhuang-e-wai-phpcha-jian">安装额外PHP插件</h3>
+<p>不同的模板要求不同的PHP插件，具体看文档要求，Wordpress要安装如下的PHP插件：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo apt install php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip
+</span></code></pre>
+<p>安装完后，重启php-fpm使上述插件生效：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo systemctl restart php7.4-fpm.service
+</span></code></pre>
+<p>注意，php-fpm有不同的版本，我这里是7.4，所以写的是php7.4-fpm.service，若是版本不同自行更改版本号。可以通过如下命令确定php的版本：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo systemctl status php</span><span style="font-weight:bold;color:#a71d5d;">* | </span><span>grep fpm.service
+</span></code></pre>
+<h3 id="xia-zai-wordpress">下载WordPress</h3>
+<p>下载最新版WordPress并复制到/var/www/your_domain下：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#62a35c;">cd</span><span> /tmp
+</span><span>curl -LO https://wordpress.org/latest.tar.gz
+</span><span>tar xzvf latest.tar.gz
+</span></code></pre>
+<p>在复制全部文件到/var/www/your_domain前，先从wordpress给出示例配置文件中复制一份配置文件模板:</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>cp /tmp/wordpress/wp-config-sample.php /tmp/wordpress/wp-config.php
+</span></code></pre>
+<p>最后复制全部文件(保留文件权限属性)到/var/www/your_domain：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo cp -a /tmp/wordpress/. /var/www/your_domain
+</span><span>sudo chown -R www-data:www-data /var/www/your_domain
+</span></code></pre>
+<h3 id="pei-zhi-nginx-1">配置Nginx</h3>
+<p>建议直接到https://www.digitalocean.com/community/tools/nginx, 在线生配置文件(建议选有wordpress优化的配置)并按提示覆盖到/etc/nginx目录下。</p>
+<p>然后，测试配置文件是否有误：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo nginx -t
+</span></code></pre>
+<p>最后，重载Nginx配置文件使之生效：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>sudo systemctl reload nginx
+</span></code></pre>
+<h3 id="pei-zhi-wordpress">配置WordPress</h3>
+<p>首先，从wordpress秘钥生成接口处获取wordpress安全值：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>curl -s https://api.wordpress.org/secret-key/1.1/salt/
+</span></code></pre>
+<p>输出内容大概如下：</p>
+<blockquote>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>define(&#39;AUTH_KEY&#39;,         &#39;1jl/vqfs&lt;XhdXoAPz9 DO NOT COPY THESE VALUES c_j{iwqD^&lt;+c9.k&lt;J@4H&#39;);
+</span><span>define(&#39;SECURE_AUTH_KEY&#39;,  &#39;E2N-h2]Dcvp+aS/p7X DO NOT COPY THESE VALUES {Ka(f;rv?Pxf})CgLi-3&#39;);
+</span><span>define(&#39;LOGGED_IN_KEY&#39;,    &#39;W(50,{W^,OPB%PB&lt;JF DO NOT COPY THESE VALUES 2;y&amp;,2m%3]R6DUth[;88&#39;);
+</span><span>define(&#39;NONCE_KEY&#39;,        &#39;ll,4UC)7ua+8&lt;!4VM+ DO NOT COPY THESE VALUES #`DXF+[$atzM7 o^-C7g&#39;);
+</span><span>define(&#39;AUTH_SALT&#39;,        &#39;koMrurzOA+|L_lG}kf DO NOT COPY THESE VALUES  07VC*Lj*lD&amp;?3w!BT#-&#39;);
+</span><span>define(&#39;SECURE_AUTH_SALT&#39;, &#39;p32*p,]z%LZ+pAu:VY DO NOT COPY THESE VALUES C-?y+K0DK_+F|0h{!_xY&#39;);
+</span><span>define(&#39;LOGGED_IN_SALT&#39;,   &#39;i^/G2W7!-1H2OQ+t$3 DO NOT COPY THESE VALUES t6**bRVFSD[Hi])-qS`|&#39;);
+</span><span>define(&#39;NONCE_SALT&#39;,       &#39;Q6]U:K?j4L%Z]}h^q7 DO NOT COPY THESE VALUES 1% ^qUswWgn+6&amp;xqHN&amp;%&#39;);
+</span></code></pre>
+</blockquote>
+<p>注意，每个人获取到的内容都不同。</p>
+<p>然后，开始配置wordpress的配置文件：</p>
+<pre data-lang="sh" style="background-color:#ffffff;color:#323232;" class="language-sh "><code class="language-sh" data-lang="sh"><span>nano /var/www/your_domain/wp-config.php
+</span></code></pre>
+<p>找到如下内容并用刚才执行curl获取到的内容替换：</p>
+<blockquote>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>define(&#39;AUTH_KEY&#39;,         &#39;put your unique phrase here&#39;);
+</span><span>define(&#39;SECURE_AUTH_KEY&#39;,  &#39;put your unique phrase here&#39;);
+</span><span>define(&#39;LOGGED_IN_KEY&#39;,    &#39;put your unique phrase here&#39;);
+</span><span>define(&#39;NONCE_KEY&#39;,        &#39;put your unique phrase here&#39;);
+</span><span>define(&#39;AUTH_SALT&#39;,        &#39;put your unique phrase here&#39;);
+</span><span>define(&#39;SECURE_AUTH_SALT&#39;, &#39;put your unique phrase here&#39;);
+</span><span>define(&#39;LOGGED_IN_SALT&#39;,   &#39;put your unique phrase here&#39;);
+</span><span>define(&#39;NONCE_SALT&#39;,       &#39;put your unique phrase here&#39;);
+</span></code></pre>
+</blockquote>
+<p>继续查找，修改数据名称，密码：</p>
+<pre data-lang="php" style="background-color:#ffffff;color:#323232;" class="language-php "><code class="language-php" data-lang="php"><span>define(&#39;DB_NAME&#39;, &#39;wordpress&#39;);
+</span><span>
+</span><span>/** MySQL database username */
+</span><span>define(&#39;DB_USER&#39;, &#39;wordpress_user&#39;);
+</span><span>
+</span><span>/** MySQL database password */
+</span><span>define(&#39;DB_PASSWORD&#39;, &#39;password&#39;);
+</span></code></pre>
+<p>此外，还要在这个文件加上两行说明，指定wordpress对文件系统操作方式，禁用连接脚本（不加这个参数的话，使用在digitalocean生成wordpress的nginx配置文件，会使得wordpress后台无法操作），这两行参数可加在任意处。</p>
+<pre data-lang="php" style="background-color:#ffffff;color:#323232;" class="language-php "><code class="language-php" data-lang="php"><span>define(&#39;FS_METHOD&#39;, &#39;direct&#39;);
+</span><span>define( &#39;CONCATENATE_SCRIPTS&#39;, false );
+</span></code></pre>
+<p>最后，保存并退出。</p>
+<h3 id="deng-lu-wordpress">登录WordPress</h3>
+<p>到这里，wordpress基本部署完毕，剩下的就是到wordpress的登录页面进行初始化设置了。直接到http://server_domain_or_IP处按提示操作即可。</p>
+<p>参考：</p>
+<p>https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mariadb-php-lemp-stack-on-debian-10</p>
+<p>https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-nginx-mariadb-and-php-on-debian-10</p>
+<p>https://www.linode.com/docs/web-servers/lemp/how-to-install-the-lemp-stack-on-debian-10/</p>
+<p>https://www.tecmint.com/install-lemp-on-debian-10-server/</p>
+<p>https://www.hostloc.com/thread-750277-1-1.html</p>
+<p>https://gist.github.com/moneal/9859180</p>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

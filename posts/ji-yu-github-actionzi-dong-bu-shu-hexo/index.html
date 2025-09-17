@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>基于Github Action自动部署Hexo</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;老早就听闻Hexo + Github Action这操作，源文件备份，自动化构建，省时省力，真是羡煞我也，但是一直对Git操作和Github Action的写法不熟悉，弄不来。现在总算有时间学一遍Git的操作了，学完刚好来实践一番,顺便把过程记录一下。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;zhun-bei-gong-zuo&amp;quot;&amp;gt;准备工作…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/ji-yu-github-actionzi-dong-bu-shu-hexo/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/ji-yu-github-actionzi-dong-bu-shu-hexo/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="基于Github Action自动部署Hexo">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;老早就听闻Hexo + Github Action这操作，源文件备份，自动化构建，省时省力，真是羡煞我也，但是一直对Git操作和Github Action的写法不熟悉，弄不来。现在总算有时间学一遍Git的操作了，学完刚好来实践一番,顺便把过程记录一下。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;zhun-bei-gong-zuo&amp;quot;&amp;gt;准备工作…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="基于Github Action自动部署Hexo">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;老早就听闻Hexo + Github Action这操作，源文件备份，自动化构建，省时省力，真是羡煞我也，但是一直对Git操作和Github Action的写法不熟悉，弄不来。现在总算有时间学一遍Git的操作了，学完刚好来实践一番,顺便把过程记录一下。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h2 id=&amp;quot;zhun-bei-gong-zuo&amp;quot;&amp;gt;准备工作…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>基于Github Action自动部署Hexo</h1>
+        <span>
+          <br><time datetime="2021-02-04T16:45:51">Feb 04, 2021</time>
+        </span>
+      </header><p>老早就听闻Hexo + Github Action这操作，源文件备份，自动化构建，省时省力，真是羡煞我也，但是一直对Git操作和Github Action的写法不熟悉，弄不来。现在总算有时间学一遍Git的操作了，学完刚好来实践一番,顺便把过程记录一下。</p>
+<span id="continue-reading"></span><h2 id="zhun-bei-gong-zuo">准备工作</h2>
+<h3 id="ben-di-hexobo-ke-zheng-chang">本地Hexo博客正常</h3>
+<p>首先，确认 <code>_config.yml</code> 文件中有类似如下的 <code>GitHub Pages</code> 配置：</p>
+<pre data-lang="yaml" style="background-color:#ffffff;color:#323232;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#63a35c;">deploy</span><span>:
+</span><span>  </span><span style="color:#63a35c;">type</span><span>: </span><span style="color:#183691;">git
+</span><span>  </span><span style="color:#63a35c;">repository</span><span>: </span><span style="color:#183691;">git@github.com:YulinChan/YulinChan.github.io.git
+</span><span>  </span><span style="color:#63a35c;">branch</span><span>: </span><span style="color:#183691;">master
+</span></code></pre>
+<p>其次，确保Hexo能在本地正确运行且可以部署到Github Page。</p>
+<h3 id="chuang-jian-suo-xu-de-cang-ku">创建所需的仓库</h3>
+<h4 id="yuan-cheng-githubcang-ku">远程Github仓库</h4>
+<ol>
+<li>创建 <code>blog</code> 仓库用来存放 Hexo 项目</li>
+<li>创建 <code>your.github.io</code> 仓库用来存放静态博客页面</li>
+</ol>
+<h4 id="ben-di-gitcang-ku">本地Git仓库</h4>
+<p>进入在本地Hexo博客文件夹下，先去除一些不必要的文件和文件夹，如<code>.deploy_git</code>，因为这些文件在部署的时候都会重新生成一遍，所以没必要保留。 以后在本地调试只需要执行<code>hexo s</code>即可，没有必要在本地生成html。</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>hexo clean
+</span><span>rm -rf .deploy_git
+</span></code></pre>
+<p>另外，值得注意的是，如果Hexo的主题是通过<code>git clone</code>获取的（即主题文件夹也是一个git仓库），会出现git仓库嵌套，那么在部署Github Action时就要使用特定actions/checkout来完整签出仓库内容，否则在自动部署时会找不到主题模板。当然了，还有一个比较简单粗暴的方法，删除主题文件下Git仓库相关文件及文件夹，如<code>.git</code> ，我当然是用的删除法啦。</p>
+<p>然后，执行如下命令，初始化本地Git仓库并与Github上的远程仓库想关联。</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>git init
+</span><span>git add .
+</span><span>git commit -m </span><span style="color:#183691;">&quot;init git&quot;
+</span><span>git remote add origin git@github.com:YulinChan/blog.git
+</span><span>git push -u origin main
+</span></code></pre>
+<h3 id="sheng-cheng-bu-shu-mi-yao">生成部署密钥</h3>
+<p>执行如下命令来生存ssh密钥对</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>ssh-keygen -t rsa -b 4096 -C </span><span style="color:#183691;">&quot;Hexo Deploy Key&quot;</span><span> -f github-deploy-key -N </span><span style="color:#183691;">&quot;&quot;
+</span></code></pre>
+<p>当前目录下会有 <code>github-deploy-key</code> 私钥 和 <code>github-deploy-key.pub</code>  公钥两个文件。</p>
+<h3 id="pei-zhi-bu-shu-mi-yao">配置部署密钥</h3>
+<h4 id="blogcang-ku-shang-tian-jia-si-yao">blog仓库上添加私钥</h4>
+<p>复制 <code>github-deploy-key</code> 文件内容，在 <code>blog</code> 仓库 <code>Settings -&gt; Secrets -&gt; Add a new secret</code> 页面上添加。</p>
+<ol>
+<li>在 <code>Name</code> 输入框填写 <code>HEXO_DEPLOY_KEY</code>。</li>
+<li>在 <code>Value</code> 输入框填写 <code>github-deploy-key</code> 文件内容。</li>
+</ol>
+<h4 id="your-github-iocang-ku-shang-tian-jia-gong-yao">your.github.io仓库上添加公钥</h4>
+<p>复制 <code>github-deploy-key.pub</code> 文件内容，在 <code>your.github.io</code> 仓库 <code>Settings -&gt; Deploy keys -&gt; Add deploy key</code> 页面上添加。</p>
+<ol>
+<li>在 <code>Title</code> 输入框填写 <code>HEXO_DEPLOY_PUB</code>。</li>
+<li>在 <code>Key</code> 输入框填写 <code>github-deploy-key.pub</code> 文件内容。</li>
+<li>勾选 <code>Allow write access</code> 选项。</li>
+</ol>
+<h2 id="chuang-jian-github-action">创建Github Action</h2>
+<p>在 <code>blog</code> 仓库根目录下创建 <code>.github/workflows/deploy.yml</code> 文件，目录结构如下。</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>blog (repository)
+</span><span>└── .github
+</span><span>    └── workflows
+</span><span>        └── deploy.yml
+</span></code></pre>
+<p>在 <code>deploy.yml</code> 文件中填以下内容。</p>
+<pre data-lang="yaml" style="background-color:#ffffff;color:#323232;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#63a35c;">name</span><span>: </span><span style="color:#183691;">Hexo Deploy
+</span><span>
+</span><span style="color:#0086b3;">on</span><span>:
+</span><span>  </span><span style="color:#63a35c;">push</span><span>:
+</span><span>    </span><span style="color:#63a35c;">branches</span><span>:
+</span><span>      - </span><span style="color:#183691;">main
+</span><span>
+</span><span style="color:#63a35c;">jobs</span><span>:
+</span><span>  </span><span style="color:#63a35c;">build</span><span>:
+</span><span>    </span><span style="color:#63a35c;">runs-on</span><span>: </span><span style="color:#183691;">ubuntu-latest
+</span><span>    </span><span style="color:#63a35c;">if</span><span>: </span><span style="color:#183691;">github.event.repository.owner.id == github.event.sender.id
+</span><span>
+</span><span>    </span><span style="color:#63a35c;">steps</span><span>:
+</span><span>      - </span><span style="color:#63a35c;">name</span><span>: </span><span style="color:#183691;">Checkout source
+</span><span>        </span><span style="color:#63a35c;">uses</span><span>: </span><span style="color:#183691;">actions/checkout@v2
+</span><span>        </span><span style="color:#63a35c;">with</span><span>:
+</span><span>          </span><span style="color:#63a35c;">ref</span><span>: </span><span style="color:#183691;">main
+</span><span>
+</span><span>      - </span><span style="color:#63a35c;">name</span><span>: </span><span style="color:#183691;">Setup Node.js
+</span><span>        </span><span style="color:#63a35c;">uses</span><span>: </span><span style="color:#183691;">actions/setup-node@v1
+</span><span>        </span><span style="color:#63a35c;">with</span><span>:
+</span><span>          </span><span style="color:#63a35c;">node-version</span><span>: </span><span style="color:#183691;">&#39;12&#39;
+</span><span>
+</span><span>      - </span><span style="color:#63a35c;">name</span><span>: </span><span style="color:#183691;">Setup Hexo
+</span><span>        </span><span style="color:#63a35c;">env</span><span>:
+</span><span>          </span><span style="color:#63a35c;">ACTION_DEPLOY_KEY</span><span>: </span><span style="color:#183691;">${{ secrets.HEXO_DEPLOY_KEY }}
+</span><span>        </span><span style="color:#63a35c;">run</span><span>: </span><span style="font-weight:bold;color:#a71d5d;">|
+</span><span style="color:#183691;">          mkdir -p ~/.ssh/
+</span><span style="color:#183691;">          echo &quot;$ACTION_DEPLOY_KEY&quot; &gt; ~/.ssh/id_rsa
+</span><span style="color:#183691;">          chmod 700 ~/.ssh
+</span><span style="color:#183691;">          chmod 600 ~/.ssh/id_rsa
+</span><span style="color:#183691;">          ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts
+</span><span style="color:#183691;">          git config --global user.email &quot;chenyulin@yandex.com&quot;
+</span><span style="color:#183691;">          git config --global user.name &quot;YulinChan&quot;
+</span><span style="color:#183691;">          npm install hexo-cli -g
+</span><span style="color:#183691;">          npm install
+</span><span style="color:#183691;">
+</span><span>      - </span><span style="color:#63a35c;">name</span><span>: </span><span style="color:#183691;">Deploy
+</span><span>        </span><span style="color:#63a35c;">run</span><span>: </span><span style="font-weight:bold;color:#a71d5d;">|
+</span><span style="color:#183691;">          hexo clean
+</span><span style="color:#183691;">          hexo deploy
+</span></code></pre>
+<p>上面的email和name要根据实际情况修改。</p>
+<p>设置好上面的配置文件后，要先将其更新到本地Git仓库，不然会因为冲突而无法push，因为远程仓库添加了新文件。更新只需在本地Hexo博客文件夹执行pull更新即可</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>git pull
+</span></code></pre>
+<p>然后，随便生成一篇新文章并push到Github上</p>
+<pre data-lang="bash" style="background-color:#ffffff;color:#323232;" class="language-bash "><code class="language-bash" data-lang="bash"><span>hexo new my_new_post
+</span><span>git add .
+</span><span>git commit -m </span><span style="color:#183691;">&quot;new post&quot;
+</span><span>git push
+</span></code></pre>
+<p>最后，可以到Github仓库的Actions里查看情况了，如果是绿色的勾则代表成功了。</p>
+<h2 id="can-kao">参考</h2>
+<p>https://tommy.net.cn/2020/08/06/deploy-hexo-with-github-actions/</p>
+<p>https://sanonz.github.io/2020/deploy-a-hexo-blog-from-github-actions</p>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

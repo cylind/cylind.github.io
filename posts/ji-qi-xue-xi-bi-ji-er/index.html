@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>机器学习笔记（二）</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;h1 id=&amp;quot;duo-bian-liang-xian-xing-hui-gui&amp;quot;&amp;gt;多变量线性回归&amp;lt;&#x2F;h1&amp;gt;&amp;lt;p&amp;gt;多变量线性回归和单变量线性回归大同小异啦&amp;lt;&#x2F;p&amp;gt;&amp;lt;h2 id=&amp;quot;fu-hao-ding-yi&amp;quot;&amp;gt;符号定义&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;m表示训练集的规模，n表示样品的特征数量，x的上下标分别表示第几个样品的第几个特征&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;https:&#x2F;&#x2F;raw.githubuse…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/ji-qi-xue-xi-bi-ji-er/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/ji-qi-xue-xi-bi-ji-er/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="机器学习笔记（二）">
+  <meta property="og:description" content="&amp;lt;h1 id=&amp;quot;duo-bian-liang-xian-xing-hui-gui&amp;quot;&amp;gt;多变量线性回归&amp;lt;&#x2F;h1&amp;gt;&amp;lt;p&amp;gt;多变量线性回归和单变量线性回归大同小异啦&amp;lt;&#x2F;p&amp;gt;&amp;lt;h2 id=&amp;quot;fu-hao-ding-yi&amp;quot;&amp;gt;符号定义&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;m表示训练集的规模，n表示样品的特征数量，x的上下标分别表示第几个样品的第几个特征&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;https:&#x2F;&#x2F;raw.githubuse…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="机器学习笔记（二）">
+  <meta name=twitter:description content="&amp;lt;h1 id=&amp;quot;duo-bian-liang-xian-xing-hui-gui&amp;quot;&amp;gt;多变量线性回归&amp;lt;&#x2F;h1&amp;gt;&amp;lt;p&amp;gt;多变量线性回归和单变量线性回归大同小异啦&amp;lt;&#x2F;p&amp;gt;&amp;lt;h2 id=&amp;quot;fu-hao-ding-yi&amp;quot;&amp;gt;符号定义&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;m表示训练集的规模，n表示样品的特征数量，x的上下标分别表示第几个样品的第几个特征&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;https:&#x2F;&#x2F;raw.githubuse…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>机器学习笔记（二）</h1>
+        <span>
+          <br><time datetime="2020-03-02T21:14:02">Mar 02, 2020</time>
+        </span>
+      </header><h1 id="duo-bian-liang-xian-xing-hui-gui">多变量线性回归</h1>
+<p>多变量线性回归和单变量线性回归大同小异啦</p>
+<h2 id="fu-hao-ding-yi">符号定义</h2>
+<p>m表示训练集的规模，n表示样品的特征数量，x的上下标分别表示第几个样品的第几个特征</p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E8%A1%A8%E7%A4%BA.png" alt="多变量线性回归表示" /></p>
+<p>假设方程表示如下：</p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%96%B9%E7%A8%8B.png" alt="多变量线性回归方程" /></p>
+<p>注意啦，为了方便计算我们默认x<sub>0</sub> = 1</p>
+<p>其向量表示形式如下：</p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E5%A4%9A%E5%8F%98%E9%87%8F%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E6%96%B9%E7%A8%8B%E7%9A%84%E5%90%91%E9%87%8F%E5%BD%A2%E5%BC%8F.png" alt="多变量线性回归方程的向量形式" /></p>
+<h2 id="ti-du-xia-jiang">梯度下降</h2>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

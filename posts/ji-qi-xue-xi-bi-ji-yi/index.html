@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>机器学习笔记（一）</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;开始入坑机器学习啦，大体的入门学习路线就是看完吴恩达的机器学习、深度学习这两个课程，并完成其课程作业。学习笔记会更新在这里，就相当是一个复习总结的过程吧！&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h1 id=&amp;quot;ji-qi-xue-xi-jian-jie&amp;quot;&amp;gt;机器学习简介&amp;lt;&#x2F;h1&amp;gt;&amp;lt;h2 id=&amp;quot;ding-yi&amp;quot;&amp;gt;定义&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;A compute…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/ji-qi-xue-xi-bi-ji-yi/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/ji-qi-xue-xi-bi-ji-yi/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="机器学习笔记（一）">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;开始入坑机器学习啦，大体的入门学习路线就是看完吴恩达的机器学习、深度学习这两个课程，并完成其课程作业。学习笔记会更新在这里，就相当是一个复习总结的过程吧！&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h1 id=&amp;quot;ji-qi-xue-xi-jian-jie&amp;quot;&amp;gt;机器学习简介&amp;lt;&#x2F;h1&amp;gt;&amp;lt;h2 id=&amp;quot;ding-yi&amp;quot;&amp;gt;定义&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;A compute…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="机器学习笔记（一）">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;开始入坑机器学习啦，大体的入门学习路线就是看完吴恩达的机器学习、深度学习这两个课程，并完成其课程作业。学习笔记会更新在这里，就相当是一个复习总结的过程吧！&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h1 id=&amp;quot;ji-qi-xue-xi-jian-jie&amp;quot;&amp;gt;机器学习简介&amp;lt;&#x2F;h1&amp;gt;&amp;lt;h2 id=&amp;quot;ding-yi&amp;quot;&amp;gt;定义&amp;lt;&#x2F;h2&amp;gt;&amp;lt;p&amp;gt;A compute…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>机器学习笔记（一）</h1>
+        <span>
+          <br><time datetime="2020-02-06T22:48:02">Feb 06, 2020</time>
+        </span>
+      </header><p>开始入坑机器学习啦，大体的入门学习路线就是看完吴恩达的机器学习、深度学习这两个课程，并完成其课程作业。学习笔记会更新在这里，就相当是一个复习总结的过程吧！</p>
+<span id="continue-reading"></span><h1 id="ji-qi-xue-xi-jian-jie">机器学习简介</h1>
+<h2 id="ding-yi">定义</h2>
+<p>A computer program is said to learn from experience E with respect to some task T and some performance measure P,if its performance on T,as measured by P,improves with experience E.</p>
+<h2 id="fen-lei">分类</h2>
+<p>机器学习主要分为监督学习和无监督学习两大类</p>
+<h3 id="jian-du-xue-xi">监督学习</h3>
+<p>监督学习（supervised learning）:监督学习就是给出一组特征，也给出特征所对应的结果。以此来推测另外的特征所对应的结果。</p>
+<p>监督学习又可以划分为两种，回归分析和分类。回归分析中比较容易理解的一维的就是线性预测嘛，比如标准曲线法就是典型的线性预测，当然还有维度更高的啦，道理都是一样的。分类就很简单啦，分两类的话就是判断是非对错，分多类也一样。</p>
+<h3 id="wu-jian-du-xue-xi">无监督学习</h3>
+<p>无监督学习（unsupervised learning）:无监督学习就是给出一堆带有某些特征的数据，但是不给出这些特征所对应的结果，以此来判断这些不同的特征之间有什么结构关系。聚类问题就是无监督学习的一个例子，说白了就是给你一堆数据，然后让算法自动给数据分门别类。</p>
+<h1 id="dan-bian-liang-xian-xing-hui-gui">单变量线性回归</h1>
+<p>假设方程中只含有一个特征/输入变量的问题叫作单变量线性回归问题。</p>
+<h3 id="fu-hao-ding-yi">符号定义</h3>
+<p>m：样本数量（ training examples）</p>
+<p>x：输入值，又成为特征（input variables/features）</p>
+<p>y：输出值，又叫目标值（output variables/target variables）</p>
+<p>(x,y)：训练样本（training examples）</p>
+<p>第i个训练样本（i<sup>th </sup>training examples）：（x<sup>(i)</sup>,y<sup>(i)</sup>)</p>
+<p>h 代表学习算法的解决方案或函数也称为假设（<strong>hypothesis</strong>）</p>
+<h3 id="mo-xing-biao-shi">模型表示</h3>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/1.png" alt="" /></p>
+<h3 id="dai-jia-han-shu">代价函数</h3>
+<p>假设方程中有两个参数是需要我们确定的，我们如何选择这两个参数将直接影响到假设方程预测的准确度。</p>
+<p>我们将假设方程预测的值与样本真实值之差称为<strong>建模误差</strong>，显然建模误差之和越小，则预测越准确，我们要做的便是确定两个参数的值以使得建模误差之和最小，因此我们建立以上述两参数为变量<strong>代价函数</strong>（平方差函数），这样能使得代价函数取得最小值的点即所求。</p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E5%BB%BA%E6%A8%A1%E8%AF%AF%E5%B7%AE.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E4%BB%A3%E4%BB%B7%E6%96%B9%E7%A8%8B%E4%B8%8E%E5%81%87%E8%AE%BE%E6%96%B9%E7%A8%8B.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E6%8B%9F%E5%90%88%E8%AF%AF%E5%B7%AE0.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E6%8B%9F%E5%90%88%E8%AF%AF%E5%B7%AE.png" alt="" /></p>
+<h3 id="ti-du-xia-jiang">梯度下降</h3>
+<p>梯度下降是一个用来求函数最小值的算法，使用梯度下降算法可以求出代价函数 的最小值。
+<img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D.png" alt="批量梯度下降" />
+梯度下降背后的思想是：开始时我们随机选择一个参数的组合，计算代价函数，然后我们寻找下一个能让代价函数值下降最多的参数组合。我们持续这么做直到到到一个局部最小值（<strong>local minimum</strong>），因为我们并没有尝试完所有的参数组合，所以不能确定我们得到的局部最小值是否便是全局最小值（<strong>global minimum</strong>），选择不同的初始参数组合，可能会找到不同的局部最小值。<mark>实际上，在这里只有一个最小值，所以无需考虑它是否是全局最小值</mark></p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E5%90%8C%E6%AD%A5%E6%94%B9%E5%8F%98.png" alt="同步改变" /></p>
+<p>批量梯度下降（<strong>batch gradient descent</strong>）算法的公式为： 其中是学习率a（<strong>learning rate</strong>），它决定了我们沿着能让代价函数下降程度最大的方向向下迈出的步子有多大，在批量梯度下降中，我们每一次都同时让所有的参数减去学习速率乘以代价函数的偏导数。学习率a设得过大则会一下子迈过了最小值，设置得过小需要迈的次数则太多，耗费时间。<mark>参数同时变化的，不能先求出一个参数代入到代价方程中去求另外一个参数</mark></p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D.png" alt="" /></p>
+<h3 id="ti-du-xia-jiang-de-xian-xing-hui-gui">梯度下降的线性回归</h3>
+<p><strong>批量梯度下降</strong>指的是在梯度下降的每一步中，我们都用到了所有的训练样本，在梯度下降中，在计算微分求导项时，我们需要进行求和运算，所以，在每一个单独的梯度下降中，我们最终都要计算这样一个东西，这个项需要对所有m个训练样本求和。因此，批量梯度下降法这个名字说明了我们需要考虑所有这一"批"训练样本，而事实上，有时也有其他类型的梯度下降法，不是这种"批量"型的，不考虑整个的训练集，而是每次只关注训练集中的一些小的子集，比如正规方程。</p>
+<p>求导后的参数形式：</p>
+<p><img src="https://raw.githubusercontent.com/cylind/cylind.github.io/static/img/%E6%B1%82%E5%AF%BC%E5%90%8E%E7%9A%84%E5%8F%82%E6%95%B0%E5%BD%A2%E5%BC%8F.png" alt="求导后的参数形式" /></p>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

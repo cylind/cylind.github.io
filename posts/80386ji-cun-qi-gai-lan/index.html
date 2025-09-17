@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>80386寄存器概览</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;占坑～～&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;学习计算机系统，感觉老师汇编部分讲的不多，寄存器那里主要介绍那几个通用寄存器，段地址寄存器没有讲到，产生了一些疑惑，所以我决定在这里给它整明白了。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;p&amp;gt;当前疑惑的主要是段地址的区别，8086和80386的段地址寄存器都是16位的，二者的寻址方式也不一样了，8086是 &amp;lt;code&amp;gt;段地址×…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/80386ji-cun-qi-gai-lan/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/80386ji-cun-qi-gai-lan/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="80386寄存器概览">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;占坑～～&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;学习计算机系统，感觉老师汇编部分讲的不多，寄存器那里主要介绍那几个通用寄存器，段地址寄存器没有讲到，产生了一些疑惑，所以我决定在这里给它整明白了。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;p&amp;gt;当前疑惑的主要是段地址的区别，8086和80386的段地址寄存器都是16位的，二者的寻址方式也不一样了，8086是 &amp;lt;code&amp;gt;段地址×…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="80386寄存器概览">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;占坑～～&amp;lt;&#x2F;p&amp;gt;&amp;lt;p&amp;gt;学习计算机系统，感觉老师汇编部分讲的不多，寄存器那里主要介绍那几个通用寄存器，段地址寄存器没有讲到，产生了一些疑惑，所以我决定在这里给它整明白了。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;p&amp;gt;当前疑惑的主要是段地址的区别，8086和80386的段地址寄存器都是16位的，二者的寻址方式也不一样了，8086是 &amp;lt;code&amp;gt;段地址×…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>80386寄存器概览</h1>
+        <span>
+          <br><time datetime="2021-03-21T10:17:50">Mar 21, 2021</time>
+        </span>
+      </header><p>占坑～～</p>
+<p>学习计算机系统，感觉老师汇编部分讲的不多，寄存器那里主要介绍那几个通用寄存器，段地址寄存器没有讲到，产生了一些疑惑，所以我决定在这里给它整明白了。</p>
+<span id="continue-reading"></span>
+<p>当前疑惑的主要是段地址的区别，8086和80386的段地址寄存器都是16位的，二者的寻址方式也不一样了，8086是 <code>段地址×16 + 偏移地址</code> （结果是逻辑地址），80386段寄存器里装的不是段偏移地址，而是一个段描述符，根据描述符取得物理地址基址，加上偏移算出物理地址描述符表定义所有段的物理地址基址。</p>
+<h2 id="can-kao">参考</h2>
+<p><a href="https://linux.cn/blog-11720-5749.html">80386常用内部寄存器</a></p>
+<p><a href="https://www.cnblogs.com/l0nmar/p/12553872.html">80386汇编</a></p>
+<p><a href="https://programtip.com/en/art-48102">重新认识intel段机制寻址方式</a></p>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>

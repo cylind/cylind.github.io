@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>JAVA学习笔记</title>
+  <meta name=author content="cylind">
+  <meta name=description content="&amp;lt;p&amp;gt;java俺也只是略有了解，不常用，做个笔记备忘，说不定以后要用到。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h1 id=&amp;quot;javaji-ben-yu-fa&amp;quot;&amp;gt;JAVA基本语法&amp;lt;&#x2F;h1&amp;gt;&amp;lt;h2 id=&amp;quot;shu-ru-shu-chu&amp;quot;&amp;gt;输入输出&amp;lt;&#x2F;h2&amp;gt;&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;输入：&amp;lt;&#x2F;li&amp;gt;&amp;lt;&#x2F;ul&amp;gt;&amp;lt;pre data-lang=&amp;quot;java&amp;quot; styl…" />
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel=canonical href="/posts/javaxue-xi-bi-ji/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="/posts/javaxue-xi-bi-ji/">
+  <meta property="og:site_name" content="cylind blog">
+  <meta property="og:title" content="JAVA学习笔记">
+  <meta property="og:description" content="&amp;lt;p&amp;gt;java俺也只是略有了解，不常用，做个笔记备忘，说不定以后要用到。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h1 id=&amp;quot;javaji-ben-yu-fa&amp;quot;&amp;gt;JAVA基本语法&amp;lt;&#x2F;h1&amp;gt;&amp;lt;h2 id=&amp;quot;shu-ru-shu-chu&amp;quot;&amp;gt;输入输出&amp;lt;&#x2F;h2&amp;gt;&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;输入：&amp;lt;&#x2F;li&amp;gt;&amp;lt;&#x2F;ul&amp;gt;&amp;lt;pre data-lang=&amp;quot;java&amp;quot; styl…">
+  <meta name=twitter:card content="summary">
+  <meta name=twitter:title content="JAVA学习笔记">
+  <meta name=twitter:description content="&amp;lt;p&amp;gt;java俺也只是略有了解，不常用，做个笔记备忘，说不定以后要用到。&amp;lt;&#x2F;p&amp;gt;&amp;lt;span id=&amp;quot;continue-reading&amp;quot;&amp;gt;&amp;lt;&#x2F;span&amp;gt;&amp;lt;h1 id=&amp;quot;javaji-ben-yu-fa&amp;quot;&amp;gt;JAVA基本语法&amp;lt;&#x2F;h1&amp;gt;&amp;lt;h2 id=&amp;quot;shu-ru-shu-chu&amp;quot;&amp;gt;输入输出&amp;lt;&#x2F;h2&amp;gt;&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;输入：&amp;lt;&#x2F;li&amp;gt;&amp;lt;&#x2F;ul&amp;gt;&amp;lt;pre data-lang=&amp;quot;java&amp;quot; styl…">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" sizes="16x16" href="/favicon.ico" />
+  <link rel=alternate type=application/rss+xml href="/index.xml" title=cylind blog/>
+  <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+  <header>
+    <a class="header__verification" href="">cylind blog</a>
+    <p class="header__official">Official</p>
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+          
+        </li>
+        <li>
+          <a href="/posts/">Posts</a>
+          
+        </li>
+        <li>
+          <a href="/about/">About</a>
+          
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      <header>
+        <h1>JAVA学习笔记</h1>
+        <span>
+          <br><time datetime="2019-08-08T15:12:52">Aug 08, 2019</time>
+        </span>
+      </header><p>java俺也只是略有了解，不常用，做个笔记备忘，说不定以后要用到。</p>
+<span id="continue-reading"></span><h1 id="javaji-ben-yu-fa">JAVA基本语法</h1>
+<h2 id="shu-ru-shu-chu">输入输出</h2>
+<ul>
+<li>输入：</li>
+</ul>
+<pre data-lang="java" style="background-color:#ffffff;color:#323232;" class="language-java "><code class="language-java" data-lang="java"><span> </span><span style="font-weight:bold;color:#a71d5d;">import </span><span style="color:#0086b3;">java</span><span>.</span><span style="color:#0086b3;">util</span><span>.</span><span style="color:#0086b3;">Scanner</span><span>;
+</span><span style="font-weight:bold;color:#a71d5d;">public class </span><span style="color:#0086b3;">Practice </span><span>{
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">public static void </span><span style="font-weight:bold;color:#795da3;">main</span><span>(</span><span style="color:#0086b3;">String</span><span style="font-weight:bold;color:#a71d5d;">[] </span><span>args) {
+</span><span>        </span><span style="color:#0086b3;">Scanner</span><span> i </span><span style="font-weight:bold;color:#a71d5d;">= new </span><span style="color:#0086b3;">Scanner</span><span>(</span><span style="color:#0086b3;">System</span><span>.in);
+</span><span>         a </span><span style="font-weight:bold;color:#a71d5d;">=</span><span> i.nextInt();</span><span style="font-weight:bold;color:#a71d5d;">/</span><span>小数的话f </span><span style="font-weight:bold;color:#a71d5d;">=</span><span> i.nextFloat();双精度则i.nextDouble()
+</span><span>        </span><span style="font-weight:bold;color:#a71d5d;">int</span><span> b </span><span style="font-weight:bold;color:#a71d5d;">=</span><span> i.nextInt();
+</span><span>        </span><span style="color:#0086b3;">System</span><span>.out.println(a</span><span style="font-weight:bold;color:#a71d5d;">*</span><span>b);
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>若要输入字符串则直接用i.next() or i.nxetLine()</p>
+<pre data-lang="text" style="background-color:#ffffff;color:#323232;" class="language-text "><code class="language-text" data-lang="text"><span>  next():
+</span><span>1.一定要读取到有效字符后才可以结束输入。
+</span><span>2.对输入有效字符之前遇到的空白，next()方法会自动将其去掉。
+</span><span>3.只有输入有效字符后才将其后面输入的空白作为分隔符或者结束符。
+</span><span>4.next()不能得到带有空格的字符串。
+</span><span>
+</span><span>nextLine()：
+</span><span>1.以Enter为结束符,nextLine()方法返回的是输入回车之前的所有字符。
+</span><span>2.可以获得空白。
+</span></code></pre>
+<ul>
+<li>
+<p>输出:<br />
+(1) print将它的参数显示在命令窗口，并将输出光标定位在所显示的最后一个字符之后。<br />
+(2) println 将它的参数显示在命令窗口，并在结尾加上换行符，将输出光标定位在下一行的开始。<br />
+(3)printf 是格式化输出的形式。(和python，matlab的%格式化输出差不多)<br />
+<code>System.out.println("Hello World") </code><br />
+(4)输出个量，用+号相连。字符串必须用“ ”</p>
+<hr />
+<h2 id="ji-ben-yun-suan">基本运算</h2>
+</li>
+<li>
+<p>算术运算符：+ - * / %（求余）<em><strong>操作数是都是整数时，相除结果也为整数</strong></em></p>
+</li>
+<li>
+<p>数学函数：Math,使用时加上<code>Math.</code>即可，如<code>Math.sin(Math.PI)</code></p>
+<table><thead><tr><th>常用函数</th><th>三角函数</th><th>指数函数</th><th>取整函数</th></tr></thead><tbody>
+<tr><td>min(x)</td><td>sin(r)、asin(r)</td><td>exp(x) e的x次方</td><td>ceil(x)</td></tr>
+<tr><td>max(x)</td><td>cos(r)、acos(r)</td><td>log(x)自然对数、log10(x)以10为底的对数</td><td>floor(x)</td></tr>
+<tr><td>abs(x)</td><td>tan(r)、atan(r)</td><td>pow(x,y)</td><td>rint(x)</td></tr>
+<tr><td>random(x)</td><td>toDegree(r)、toRadians(d)</td><td>sqrt(x)</td><td>round(x)</td></tr>
+</tbody></table>
+<p>另外，<code>PI,E</code>分别表示π，e。</p>
+</li>
+<li>
+<p>关系运算符:==,!=,&lt;,&gt;,&lt;=,&gt;=</p>
+</li>
+<li>
+<p>逻辑运算符:&amp;&amp;,| |,！ (与，或，非)</p>
+</li>
+<li>
+<p>赋值运算符:</p>
+</li>
+</ul>
+<table><thead><tr><th>操作符</th><th>描述</th><th>例子</th></tr></thead><tbody>
+<tr><td>=</td><td>简单的赋值运算符，将右操作数的值赋给左侧操作数</td><td>C = A + B将把A + B得到的值赋给C</td></tr>
+<tr><td>+ =</td><td>加和赋值操作符，它把左操作数和右操作数相加赋值给左操作数</td><td>C + = A等价于C</td></tr>
+<tr><td>- =</td><td>减和赋值操作符，它把左操作数和右操作数相减赋值给左操作数</td><td>C - = A等价于C = C -A</td></tr>
+<tr><td>* =</td><td>乘和赋值操作符，它把左操作数和右操作数相乘赋值给左操作数</td><td>C * = A等价于C = C * A</td></tr>
+<tr><td>/=</td><td>除和赋值操作符，它把左操作数和右操作数相除赋值给左操作数</td><td>C / = A等价于C = C / A</td></tr>
+<tr><td>（％）=</td><td>取模和赋值操作符，它把左操作数和右操作数取模后赋值给左操作数</td><td>C％= A等价于C = C％A</td></tr>
+<tr><td>&lt;&lt; =</td><td>左移位赋值运算符</td><td>C &lt;&lt; = 2等价于C = C &lt;&lt; 2</td></tr>
+<tr><td>&gt;&gt; =</td><td>右移位赋值运算符</td><td>C &gt;&gt; = 2等价于C = C &gt;&gt; 2</td></tr>
+<tr><td>＆=</td><td>按位与赋值运算符</td><td>C＆= 2等价于C = C＆2</td></tr>
+<tr><td>^ =</td><td>按位异或赋值操作符</td><td>C ^ = 2等价于C = C ^ 2</td></tr>
+<tr><td>|=</td><td>按位或赋值操作符</td><td>C \</td></tr>
+</tbody></table>
+<ul>
+<li>
+<p>自增：<br />
+(1) 前缀自增自减法(++a,--a): 先进行自增或者自减运算，再进行表达式运算。<br />
+(2) 后缀自增自减法(a++,a--): 先进行表达式运算，再进行自增或者自减运算</p>
+<hr />
+</li>
+</ul>
+<h2 id="ji-ben-yu-ju">基本语句</h2>
+<h3 id="xun-huan-yu-ju">循环语句</h3>
+<ul>
+<li>while 循环<br />
+<code>while( 布尔表达式 ) { //循环内容 }</code></li>
+<li>do…while 循环<br />
+<code>do {      //代码语句 }while(布尔表达式);</code></li>
+<li>for循环<br />
+<code>for(初始化; 布尔表达式; 更新) {   //代码语句 }</code></li>
+<li>增强 for 循环(迭代循环)
+<code>for(声明语句 : 表达式) {  //代码句子 }</code></li>
+<li>break 关键字:终止该循环语句</li>
+<li>continue 关键字：跳过本次迭代，转跳至下一次迭代</li>
+</ul>
+<h3 id="pan-duan-yu-ju">判断语句</h3>
+<ul>
+<li>
+<p><code>if(布尔表达式) {  //如果布尔表达式为true将执行的语句 }</code></p>
+</li>
+<li>
+<p><code>f(布尔表达式){  //如果布尔表达式的值为true }else{  //如果布尔表达式的值为false }</code></p>
+</li>
+<li><pre data-lang="java" style="background-color:#ffffff;color:#323232;" class="language-java "><code class="language-java" data-lang="java"><span>    </span><span style="font-weight:bold;color:#a71d5d;">if</span><span>(布尔表达式 </span><span style="color:#0086b3;">1</span><span>){</span><span style="font-style:italic;color:#969896;">//如果布尔表达式 1的值为true执行代码}
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">else if</span><span>(布尔表达式 </span><span style="color:#0086b3;">2</span><span>){</span><span style="font-style:italic;color:#969896;">//如果布尔表达式 2的值为true执行代码}
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">else if</span><span>(布尔表达式 </span><span style="color:#0086b3;">3</span><span>){</span><span style="font-style:italic;color:#969896;">//如果布尔表达式 3的值为true执行代码}
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">else </span><span>{</span><span style="font-style:italic;color:#969896;">//如果以上布尔表达式都不为true执行代码}
+</span></code></pre>
+</li>
+<li>
+<p>嵌套的 if…else 语句</p>
+</li>
+</ul>
+<p>当为判断条件后只有一句执行语句时，可不加{ }</p>
+<h3 id="switch-case-yu-ju">switch case 语句</h3>
+<pre data-lang="java" style="background-color:#ffffff;color:#323232;" class="language-java "><code class="language-java" data-lang="java"><span> </span><span style="font-weight:bold;color:#a71d5d;">switch</span><span>(expression){
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">case</span><span> value </span><span style="font-weight:bold;color:#a71d5d;">:
+</span><span>       </span><span style="font-style:italic;color:#969896;">//语句
+</span><span>       </span><span style="font-weight:bold;color:#a71d5d;">break</span><span>; </span><span style="font-style:italic;color:#969896;">//可选
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">case</span><span> value </span><span style="font-weight:bold;color:#a71d5d;">:
+</span><span>       </span><span style="font-style:italic;color:#969896;">//语句
+</span><span>       </span><span style="font-weight:bold;color:#a71d5d;">break</span><span>; </span><span style="font-style:italic;color:#969896;">//可选
+</span><span>    </span><span style="font-style:italic;color:#969896;">//你可以有任意数量的case语句
+</span><span>    </span><span style="font-weight:bold;color:#a71d5d;">default : </span><span style="font-style:italic;color:#969896;">//可选， 无case匹配时默认执行
+</span><span>       </span><span style="font-style:italic;color:#969896;">//语句
+</span><span>}
+</span></code></pre>
+<p>(1) switch 语句中的变量类型可以是： byte、short、int 或者 char。从 Java SE 7 开始，switch 支持字符串 String 类型了，同时 case 标签必须为字符串常量或字面量。<br />
+(2) 当变量的值与 case 语句的值相等时，那么 case 语句之后的语句开始执行，直到 break 语句出现才会跳出 switch 语句。</p>
+<h2 id="shu-ju-lei-xing">数据类型</h2>
+<h4 id="zheng-shu">整数</h4>
+<ul>
+<li>byte (8位)</li>
+<li>short (16位)</li>
+<li>int (32位)</li>
+<li>long (64位)</li>
+</ul>
+<h4 id="fu-dian-shu">浮点数</h4>
+<ul>
+<li>float 单精度（32位）</li>
+<li>double 双精度（64位）
+<ul>
+<li>科学计数法110.23=1.1023e4，0.2234=2.234e-1</li>
+</ul>
+</li>
+</ul>
+<p><em><strong>括号里的位数代表它占存储的大小</strong></em></p>
+<h4 id="zi-fu-zi-fu-chuan-char-string">字符、字符串(char/String)</h4>
+<table><thead><tr><th>字符串方法</th><th>字符串比较</th><th style="text-align: left">字符串、数值互转</th></tr></thead><tbody>
+<tr><td>length()</td><td>equals(s1)/equalsIgnoreCase(s1)</td><td style="text-align: left">Double.parseDouble(s1)</td></tr>
+<tr><td>trim() 去掉两边空白字符</td><td>compareTo(s1)/compareIgnoreCase(s1)</td><td style="text-align: left">Integer.parseInt(s1)</td></tr>
+<tr><td>concat(s1) 连接字符串，相当于‘+’</td><td>startsWith(s1)/endsWith(s1)</td><td style="text-align: left">String s = num + “” 转字符串</td></tr>
+<tr><td>charAt(index) 索引指定位置的字符</td><td>contains(s1)</td><td style="text-align: left"></td></tr>
+<tr><td>toUpperCase()、toLowerCase()</td><td>substring(start-index,stop-index)切片</td><td style="text-align: left"></td></tr>
+</tbody></table>
+<p>索引字符串所在位置<code>indexOf(ch,form-index)</code></p>
+<h4 id="yi-wei-shu-zu">一维数组</h4>
+<p><strong>一个储存着相同类型数据的变量的列表</strong>所以声明变量类型时在其后加<code>[]</code>，如<code>double[]</code></p>
+<ul>
+<li>
+<p>声明变量数组：<code>double[] mylist</code></p>
+</li>
+<li>
+<p>创建数组：<code>double[] mylist = new double[10]</code>创建具有10个双精度数据的空数组，当然声明和创建可以一块做，就像变量一样<code>double[] mylist = new double[10] </code></p>
+</li>
+<li>
+<p>数组赋值（初始化）:<code>mylist[0]=1;mylist[1]=2;...;mylist[9]=10</code></p>
+</li>
+<li>
+<p>数组初始化语法：<code>double[] mylist = {1,2,3,4,5,6,7,8,9}</code>更简洁，不用加个new</p>
+</li>
+<li>
+<p>数组长度：<code>mylist.length</code></p>
+</li>
+<li>
+<p>foreach循环：<code>for (double e: mylist){System.out.println(e);}</code>步长只能为1，即历遍数组</p>
+</li>
+</ul>
+<h4 id="er-wei-shu-zu">二维数组</h4>
+<ul>
+<li>
+<p>​	声明，创建，初始化,赋值，索引以及处理和一维数组一样，把<code>[]</code>改为<code>[][]</code>即可</p>
+</li>
+<li>
+<p>初始化语法:</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>  ```java
+</span></code></pre>
+<p>double[][] matrix = {{1,2,3},{4,5,6},{7,8,9}}</p>
+<pre style="background-color:#ffffff;color:#323232;"><code><span>
+</span></code></pre>
+</li>
+</ul>
+<h4 id="duo-wei-shu-zu">多维数组</h4>
+<ul>
+<li></li>
+</ul>
+<h2 id="fang-fa">方法</h2>
+<ol>
+<li>
+<p>定义方法：</p>
+<p>修饰符  返回值类型   方法名(参数列表){ 方法体 }</p>
+<p><code>public static int max(int num1,int num2){//执行语句}</code></p>
+</li>
+<li>
+<p>调用方法</p>
+<p>方法名(参数列表)</p>
+<p><code>max(2,3)</code></p>
+</li>
+<li>
+<p>注意点</p>
+<ul>
+<li>void表示无返回值类型</li>
+<li>形参与实参</li>
+</ul>
+</li>
+</ol>
+<h2 id="qi-ta-zhu-yi-shi-xiang">其他注意事项</h2>
+<ul>
+<li>
+<p>使用变量要先声明变量类型<br />
+<code>type identifier [ = value][, identifier [= value] ...] ;</code><br />
+格式说明：type为Java数据类型。identifier是变量名。可以使用逗号隔开来声明多个同类型变量。</p>
+</li>
+<li>
+<p>声明常量:<code> final datatype name</code></p>
+</li>
+<li>
+<p>Java大小写敏感，方法名第一个单词小写往后的单词首字母大写；常量名全大写；类名首字母大写</p>
+</li>
+<li>
+<p>特殊字符</p>
+<table><thead><tr><th>字符</th><th style="text-align: center">描述</th><th>备注</th></tr></thead><tbody>
+<tr><td>{ }</td><td style="text-align: center">语句块</td><td>循环体中，若执行语句只有一句，可省略{ }</td></tr>
+<tr><td>（）</td><td style="text-align: center">和方法一起用</td><td>{ }do while();      for( ){}         while( ){ }   注意do while后的 ‘ ; ’</td></tr>
+<tr><td>[ ]</td><td style="text-align: center">数组</td><td>声明变量类型在类型后加[ ],初始化赋值用{1,23,3,4}的形式，表示大小用[10]</td></tr>
+<tr><td>‘ ’</td><td style="text-align: center">字符</td><td>char</td></tr>
+<tr><td>“ ”</td><td style="text-align: center">字符串</td><td>String 变量类型中唯一一个大写开头的(其实他是java的一个内置类)</td></tr>
+<tr><td>//</td><td style="text-align: center">行注释</td><td>/ 转义字符，\n表示换行，//表示注释行，/*  block */表示注释块</td></tr>
+<tr><td>；</td><td style="text-align: center">标识语句结束</td><td>每一句结束后都要有，import也不例外</td></tr>
+</tbody></table>
+</li>
+</ul>
+<script src="https://giscus.app/client.js"
+            data-repo="cylind&#x2F;cylind.github.io"
+            data-repo-id="MDEwOlJlcG9zaXRvcnkzMDIyMjI4NjY="
+            data-category="General"
+            data-category-id="DIC_kwDOEgOOEs4CvjAr"
+            data-mapping="title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+      </script></article>
+  </main>
+  <footer>
+    <p>
+      Powered by <a target="_blank" rel="noopener" href="https://www.getzola.org">zola 0.20.0</a>
+      | Theme <a target=_blank rel=noopener href=https://github.com/inhzus/zola-futu>futu@main</a>
+    </p>
+  </footer>
+  
+</body>
+</html>
